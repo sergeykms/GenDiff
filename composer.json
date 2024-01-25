@@ -1,0 +1,31 @@
+{
+    "name": "hexlet/code",
+    "description": "GenDiff",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sergeykms\\HexletPhp\\": "src/"
+        },
+        "files": [
+            "src/autoload.php"
+        ]
+    },
+    "bin": [
+        "bin/gendiff"
+      ],
+    "authors": [
+        {
+            "name": "Popov Sergey",
+            "email": "serpp@me.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpstan/phpstan": "2.0.x-dev",
+        "squizlabs/php_codesniffer": "*"
+    },
+    "require": {
+        "docopt/docopt": "dev-master"
+    }
+}
