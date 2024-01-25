@@ -11,13 +11,45 @@ Generate diff
 Usage:
   gendiff (-h|--help)
   gendiff (-v|--version)
+  gendiff [--format <fmt>] <firstFile> <secondFile>
 
 Options:
   -h --help                     Show this screen
   -v --version                  Show version
+  --format <fmt>                Report format [default: stylish]
 
 DOC;
 
 $args = Docopt::handle($doc, array('version'=>'Generate diff 1.0'));
-foreach ($args as $k=>$v)
-echo $k.': '.json_encode($v).PHP_EOL;
+
+// var_dump($args);
+
+// foreach ($args as $k=>$v)
+// echo $k.': '.json_encode($v).PHP_EOL;
+
+$format = $args['--format'];
+$firstFilePath = realpath($args['<firstFile>']);
+$secondFilePath = realpath($args['<secondFile>']);
+
+print_r("format - {$format} \n");
+print_r("firstFilePath - {$firstFilePath} \n");
+print_r("secondFilePath - {$secondFilePath} \n");
+
+ $content1 = file_get_contents($firstFilePath);
+ $content2 = file_get_contents($secondFilePath);
+
+//  $cont1 = file($firstFilePath);
+
+ print_r($content1);
+ echo "\n\n";
+ print_r($content2);
+ echo "\n\n";
+//  print_r($cont1);
+//  echo "\n\n";
+
+
+ $temp = json_decode($content1, true, 512, JSON_THROW_ON_ERROR);
+ print_r($temp);
+ echo "\n\n";
+
+
