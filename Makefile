@@ -1,6 +1,6 @@
 run: # output of the greeting
 	clear
-	php index.php
+	./bin/gendiff tests/file1.json tests/file2.json
 
 stan:
 	clear

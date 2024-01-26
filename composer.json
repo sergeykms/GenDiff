@@ -8,7 +8,8 @@
             "Sergeykms\\HexletPhp\\": "src/"
         },
         "files": [
-            "src/autoload.php"
+            "src/autoload.php",
+            "src/Differ.php"
         ]
     },
     "bin": [

@@ -3,6 +3,8 @@
 
 require_once __DIR__ . '/../src/autoload.php';
 
+use function App\Differ\genDiff;
+
 use Docopt;
 
 $doc = <<<DOC
@@ -31,25 +33,27 @@ $format = $args['--format'];
 $firstFilePath = realpath($args['<firstFile>']);
 $secondFilePath = realpath($args['<secondFile>']);
 
-print_r("format - {$format} \n");
-print_r("firstFilePath - {$firstFilePath} \n");
-print_r("secondFilePath - {$secondFilePath} \n");
+genDiff($firstFilePath, $secondFilePath);
 
- $content1 = file_get_contents($firstFilePath);
- $content2 = file_get_contents($secondFilePath);
+// print_r("format - {$format} \n");
+// print_r("firstFilePath - {$firstFilePath} \n");
+// print_r("secondFilePath - {$secondFilePath} \n");
 
-//  $cont1 = file($firstFilePath);
+//  $content1 = file_get_contents($firstFilePath);
+//  $content2 = file_get_contents($secondFilePath);
 
- print_r($content1);
- echo "\n\n";
- print_r($content2);
- echo "\n\n";
-//  print_r($cont1);
+// //  $cont1 = file($firstFilePath);
+
+//  print_r($content1);
 //  echo "\n\n";
+//  print_r($content2);
+//  echo "\n\n";
+// //  print_r($cont1);
+// //  echo "\n\n";
 
 
- $temp = json_decode($content1, true, 512, JSON_THROW_ON_ERROR);
- print_r($temp);
- echo "\n\n";
+//  $temp = json_decode($content1, true, 512, JSON_THROW_ON_ERROR);
+//  print_r($temp);
+//  echo "\n\n";
 
 
