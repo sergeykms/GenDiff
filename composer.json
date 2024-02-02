@@ -9,7 +9,7 @@
         },
         "files": [
             "src/autoload.php",
-            "src/Differ.php"
+            "src/Differ/Differ.php"
         ]
     },
     "bin": [

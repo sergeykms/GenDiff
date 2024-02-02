@@ -26,3 +26,7 @@ lint:
 lint-fix:
 	clear
 	composer exec --verbose phpcbf -- --standard=PSR12 src
+
+help:
+	clear
+	./bin/gendiff -h
