@@ -2,41 +2,24 @@
 
 namespace App\Differ;
 
-//function flat_array($array) {
-//    foreach ($array as $value) {
-//        $resu
-//        if(is_array($value)) {
-//            $result=array_merge($result,flat_array($value));
-//        }
-//        else
-//        {
-//            $result[]=$value;
-//        }
-//    }
-//    return $result;
-//}
-
 function render($diff)
 {
-    $format = '  %s  %s : %s';
-    $result = "{\n";
+    $format = '  %s %s: %s';
+    $result = "";
     foreach ($diff as $items) {
         $result .= sprintf($format, $items["mark"], $items["key"], (string)$items["value"]) . "\n";
     }
 
-    return $result . "{\n";
+    return "{\n" . $result . "}";
 }
 
 function getValue($value)
 {
-    switch (gettype($value)) {
-        case 'boolean':
-            return $value ? 'true' : 'false';
-        case 'NULL':
-            return 'null';
-        default:
-            return $value;
-    }
+    return match (gettype($value)) {
+        'boolean' => $value ? 'true' : 'false',
+        'NULL' => 'null',
+        default => $value,
+    };
 }
 
 function parseFile(string $pathToFile): mixed
@@ -55,7 +38,7 @@ function setMessage(string $key, mixed $value, string $mark)
     ];
 }
 
-function genDiff(string $pathToFile1, string $pathToFile2)
+function genDiff(string $pathToFile1, string $pathToFile2): string
 {
     $file1           = parseFile($pathToFile1);
     $file2           = parseFile($pathToFile2);
@@ -63,7 +46,8 @@ function genDiff(string $pathToFile1, string $pathToFile2)
     $uniqueFilesKeys = (array_unique($filesKeys));
     sort($uniqueFilesKeys);
     $allDiffer = getDiff($uniqueFilesKeys, $file1, $file2);
-    print_r(render($allDiffer));
+    return render($allDiffer);
+//    print_r(render($allDiffer));
 }
 
 function getDiff(array $uniqueFilesKeys, array $file1, array $file2): array

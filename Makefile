@@ -1,6 +1,6 @@
 run: # output of the greeting
 	clear
-	./bin/gendiff tests/file1.json tests/file2.json
+	./bin/gendiff tests/fixtures/file1.json tests/fixtures/file2.json
 
 stan:
 	clear
@@ -30,3 +30,7 @@ lint-fix:
 help:
 	clear
 	./bin/gendiff -h
+
+test:
+	clear
+	composer exec --verbose phpunit tests
