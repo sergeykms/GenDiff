@@ -20,12 +20,12 @@ validate: # validate composer.json
 
 lint:
 	clear
-	composer exec --verbose phpcs -- --standard=PSR12 src
+	composer exec --verbose phpcs -- --standard=PSR12 src tests
 	composer exec --verbose phpstan
 
 lint-fix:
 	clear
-	composer exec --verbose phpcbf -- --standard=PSR12 src
+	composer exec --verbose phpcbf -- --standard=PSR12 src tests
 
 help:
 	clear

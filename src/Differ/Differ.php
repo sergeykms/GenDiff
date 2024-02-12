@@ -2,7 +2,7 @@
 
 namespace App\Differ;
 
-function render($diff)
+function render(array $diff): string
 {
     $format = '  %s %s: %s';
     $result = "";
@@ -13,7 +13,7 @@ function render($diff)
     return "{\n" . $result . "}";
 }
 
-function getValue($value)
+function getValue(mixed $value): string
 {
     return match (gettype($value)) {
         'boolean' => $value ? 'true' : 'false',
@@ -24,12 +24,12 @@ function getValue($value)
 
 function parseFile(string $pathToFile): mixed
 {
-    $content = file_get_contents($pathToFile);
+    $content = (string) file_get_contents($pathToFile);
 
     return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 }
 
-function setMessage(string $key, mixed $value, string $mark)
+function setMessage(string $key, mixed $value, string $mark): array
 {
     return [
         'key'   => $key,
@@ -71,4 +71,3 @@ function getDiff(array $uniqueFilesKeys, array $file1, array $file2): array
         return $acc;
     }, []);
 }
-
