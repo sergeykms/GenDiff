@@ -1,36 +1,27 @@
 run: # output of the greeting
-	clear
 	./bin/gendiff tests/fixtures/file1.json tests/fixtures/file2.json
 
 stan:
-	clear
 	php ./vendor/bin/phpstan analyse src --level 9
 
 auto:
-	clear
 	composer dump-autoload
 
 install: # install project
-	clear
 	composer install
 
 validate: # validate composer.json
-	clear
 	composer validate
 
 lint:
-	clear
 	composer exec --verbose phpcs -- --standard=PSR12 src tests
 	composer exec --verbose phpstan
 
 lint-fix:
-	clear
 	composer exec --verbose phpcbf -- --standard=PSR12 src tests
 
 help:
-	clear
 	./bin/gendiff -h
 
 test:
-	clear
 	composer exec --verbose phpunit tests
