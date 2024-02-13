@@ -2,6 +2,8 @@
 
 namespace App\Differ;
 
+use function App\Parser\parse;
+
 function render(array $diff): string
 {
     $format = '  %s %s: %s';
@@ -38,10 +40,10 @@ function setMessage(string $key, mixed $value, string $mark): array
     ];
 }
 
-function genDiff(string $pathToFile1, string $pathToFile2): string
+function genDiff(string $pathToFile1, string $pathToFile2,): string
 {
-    $file1           = parseFile($pathToFile1);
-    $file2           = parseFile($pathToFile2);
+    $file1           = parse($pathToFile1);
+    $file2           = parse($pathToFile2);
     $filesKeys       = array_merge(array_keys($file1), array_keys($file2));
     $uniqueFilesKeys = (array_unique($filesKeys));
     sort($uniqueFilesKeys);
