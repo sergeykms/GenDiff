@@ -28,7 +28,7 @@ $format = $args['--format'];
 $firstFilePath = realpath($args['<firstFile>']);
 $secondFilePath = realpath($args['<secondFile>']);
 
-genDiff($firstFilePath, $secondFilePath);
+echo genDiff($firstFilePath, $secondFilePath);
 
 
 
