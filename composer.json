@@ -9,7 +9,8 @@
         },
         "files": [
             "src/autoload.php",
-            "src/Differ/Differ.php"
+            "src/Differ/Differ.php",
+            "src/Differ/Parser.php"
         ]
     },
     "bin": [
@@ -35,7 +36,8 @@
         "tightenco/collect": "^9.33",
         "nesbot/carbon": "^2.64",
         "symfony/string": "^6.2",
-        "phpstan/phpstan": "^1.9.2"
+        "phpstan/phpstan": "^1.9.2",
+        "symfony/yaml": "6.4.x-dev"
     },
     "config": {
         "allow-plugins": {

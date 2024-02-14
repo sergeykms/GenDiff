@@ -2,6 +2,8 @@
 
 namespace App\Differ;
 
+use function App\Parser\parse;
+
 function render(array $diff): string
 {
     $format = '  %s %s: %s';
@@ -24,7 +26,7 @@ function getValue(mixed $value): string
 
 function parseFile(string $pathToFile): mixed
 {
-    $content = (string) file_get_contents($pathToFile);
+    $content = (string)file_get_contents($pathToFile);
 
     return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 }
@@ -32,22 +34,21 @@ function parseFile(string $pathToFile): mixed
 function setMessage(string $key, mixed $value, string $mark): array
 {
     return [
-        'key'   => $key,
-        'mark'  => $mark,
+        'key' => $key,
+        'mark' => $mark,
         'value' => getValue($value),
     ];
 }
 
-function genDiff(string $pathToFile1, string $pathToFile2): string
+function genDiff(string $pathToFile1, string $pathToFile2,): string
 {
-    $file1           = parseFile($pathToFile1);
-    $file2           = parseFile($pathToFile2);
-    $filesKeys       = array_merge(array_keys($file1), array_keys($file2));
+    $file1 = parse($pathToFile1);
+    $file2 = parse($pathToFile2);
+    $filesKeys = array_merge(array_keys($file1), array_keys($file2));
     $uniqueFilesKeys = (array_unique($filesKeys));
     sort($uniqueFilesKeys);
     $allDiffer = getDiff($uniqueFilesKeys, $file1, $file2);
     return render($allDiffer);
-//    print_r(render($allDiffer));
 }
 
 function getDiff(array $uniqueFilesKeys, array $file1, array $file2): array

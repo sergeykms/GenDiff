@@ -1,5 +1,8 @@
-run: # output of the greeting
-	./bin/gendiff tests/fixtures/file1.json tests/fixtures/file2.json
+run-json: # output of the greeting
+	./bin/gendiff tests/DifferTest/fixtures/file1.json tests/DifferTest/fixtures/file2.json
+
+run-yaml: # output of the greeting
+	./bin/gendiff tests/DifferTest/fixtures/file1.yaml tests/DifferTest/fixtures/file2.yaml
 
 stan:
 	php ./vendor/bin/phpstan analyse src --level 9
