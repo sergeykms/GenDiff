@@ -48,10 +48,7 @@ function genDiff(string $pathToFile1, string $pathToFile2,): string
     $uniqueFilesKeys = (array_unique($filesKeys));
     sort($uniqueFilesKeys);
     $allDiffer = getDiff($uniqueFilesKeys, $file1, $file2);
-//    print_r(render($allDiffer));
-//    echo "\n\n";
     return render($allDiffer);
-
 }
 
 function getDiff(array $uniqueFilesKeys, array $file1, array $file2): array
