@@ -31,44 +31,48 @@ function parseFile(string $pathToFile): mixed
     return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 }
 
-function setMessage(string $key, mixed $value, string $mark): array
+function setMessage(string $key, mixed $beforeValue, mixed $afterValue, string $mark): array
 {
     return [
         'key' => $key,
         'mark' => $mark,
-        'value' => getValue($value),
+        'beforeValue' => gettype($beforeValue) != 'array' ? getValue($beforeValue) : $beforeValue,
+        'afterValue' => gettype($afterValue) != 'array' ? getValue($afterValue) : $afterValue,
+        'typeBefore' => gettype($beforeValue),
+        'typeAfter' => gettype($afterValue),
+
     ];
 }
 
-function genDiff(string $pathToFile1, string $pathToFile2,): string
+function genDiff(string $pathToFile1, string $pathToFile2,): void
 {
     $file1 = parse($pathToFile1);
     $file2 = parse($pathToFile2);
+    $allDiffer = getDiff($file1, $file2);
+    print_r($allDiffer);
+//    return render($allDiffer);
+}
+
+function getDiff(array $file1, array $file2): array
+{
     $filesKeys = array_merge(array_keys($file1), array_keys($file2));
     $uniqueFilesKeys = (array_unique($filesKeys));
     sort($uniqueFilesKeys);
-    $allDiffer = getDiff($uniqueFilesKeys, $file1, $file2);
-    return render($allDiffer);
-}
-
-function getDiff(array $uniqueFilesKeys, array $file1, array $file2): array
-{
-    return array_reduce($uniqueFilesKeys, function ($acc, $items) use ($file1, $file2) {
+    return array_map(function ($items) use ($file1, $file2) {
         if (key_exists($items, $file1) && key_exists($items, $file2)) {
-            if ($file1[$items] === $file2[$items]) {
-                $acc[] = setMessage($items, $file1[$items], ' ');
-
-                return $acc;
+            if (is_array($file1[$items]) && is_array($file2[$items])) {
+               return [$items => getDiff($file1[$items], $file2[$items])];
+            } elseif ($file1[$items] === $file2[$items]) {
+                $node =  setMessage($items, $file1[$items], $file2[$items], '=');
+            } else {
+                $node = setMessage($items, $file1[$items], $file2[$items], '<>');
             }
-            $acc[] = setMessage($items, $file1[$items], '-');
-            $acc[] = setMessage($items, $file2[$items], '+');
-
-            return $acc;
         }
-        key_exists($items, $file1) ?
-            $acc[] = setMessage($items, $file1[$items], '-') :
-            $acc[] = setMessage($items, $file2[$items], '+');
-
-        return $acc;
-    }, []);
+        if (key_exists($items, $file1) && !key_exists($items, $file2)) {
+            $node = setMessage($items, $file1[$items], null, '>');
+        } else {
+            $node = setMessage($items, null, $file2[$items], '<');
+        }
+        return $node;
+    }, $uniqueFilesKeys);
 }
