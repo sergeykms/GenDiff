@@ -9,9 +9,22 @@ function render(array $diff): string
     $format = '  %s %s: %s';
     $result = "";
     foreach ($diff as $items) {
-        $result .= sprintf($format, $items["mark"], $items["key"], (string)$items["value"]) . "\n";
+        switch ($items["mark"]) {
+            case 'unchanged':
+                $result .= sprintf($format, " ", $items["key"], (string)$items["beforeValue"]) . "\n";
+                break;
+            case 'changed':
+                $result .= sprintf($format, "-", $items["key"], (string)$items["beforeValue"])
+                    . "\n" . sprintf($format, "+", $items["key"], (string)$items["afterValue"]) . "\n";
+                break;
+            case 'deleted':
+                $result .= sprintf($format, "-", $items["key"], (string)$items["beforeValue"]) . "\n";
+                break;
+            case 'added':
+                $result .= sprintf($format, "+", $items["key"], (string)$items["afterValue"]) . "\n";
+                break;
+        }
     }
-
     return "{\n" . $result . "}";
 }
 
@@ -44,13 +57,13 @@ function setMessage(string $key, mixed $beforeValue, mixed $afterValue, string $
     ];
 }
 
-function genDiff(string $pathToFile1, string $pathToFile2,): void
+function genDiff(string $pathToFile1, string $pathToFile2,): string
 {
     $file1 = parse($pathToFile1);
     $file2 = parse($pathToFile2);
     $allDiffer = getDiff($file1, $file2);
-    print_r($allDiffer);
-//    return render($allDiffer);
+//    print_r($allDiffer);
+    return render($allDiffer);
 }
 
 function getDiff(array $file1, array $file2): array
@@ -61,17 +74,16 @@ function getDiff(array $file1, array $file2): array
     return array_map(function ($items) use ($file1, $file2) {
         if (key_exists($items, $file1) && key_exists($items, $file2)) {
             if (is_array($file1[$items]) && is_array($file2[$items])) {
-               return [$items => getDiff($file1[$items], $file2[$items])];
+                return [$items => getDiff($file1[$items], $file2[$items])];
             } elseif ($file1[$items] === $file2[$items]) {
-                $node =  setMessage($items, $file1[$items], $file2[$items], '=');
+                $node = setMessage($items, $file1[$items], $file2[$items], 'unchanged');
             } else {
-                $node = setMessage($items, $file1[$items], $file2[$items], '<>');
+                $node = setMessage($items, $file1[$items], $file2[$items], 'changed');
             }
-        }
-        if (key_exists($items, $file1) && !key_exists($items, $file2)) {
-            $node = setMessage($items, $file1[$items], null, '>');
+        } elseif (key_exists($items, $file1) && !key_exists($items, $file2)) {
+            $node = setMessage($items, $file1[$items], null, 'deleted');
         } else {
-            $node = setMessage($items, null, $file2[$items], '<');
+            $node = setMessage($items, null, $file2[$items], 'added');
         }
         return $node;
     }, $uniqueFilesKeys);
