@@ -4,35 +4,72 @@ namespace App\Stylish;
 
 function renderDiff(array $diff): string
 {
+//    print_r($diff);
+//            echo "\n\n ===================================================================";
     $format = '  %s %s: %s';
+//    $result = sprintf($format, " ", $diff["key"], " ") . "\n";
     $result = "";
     foreach ($diff as $items) {
-        switch ($items["mark"]) {
-            case 'unchanged':
-                $result .= sprintf($format, " ", $items["key"], (string)$items["beforeValue"]) . "\n";
-                break;
-            case 'changed':
-                $result .= sprintf($format, "-", $items["key"], (string)$items["beforeValue"])
-                    . "\n" . sprintf($format, "+", $items["key"], (string)$items["afterValue"]) . "\n";
-                break;
-            case 'deleted':
-                $result .= sprintf($format, "-", $items["key"], (string)$items["beforeValue"]) . "\n";
-                break;
-            case 'added':
-                $result .= sprintf($format, "+", $items["key"], (string)$items["afterValue"]) . "\n";
-                break;
+//        print_r($items);
+//        echo "\n\n ===================================================================";
+//        $result .= sprintf($format, " ", $items["key"], " ") . "\n";
+        if (is_array($items['value'])) {
+            $result .= renderDiff($items['value']);
+        } else {
+            $result .= sprintf($format, " ", $items["key"], " ") . "\n";
         }
+//        switch ($items["type"]) {
+////            case 'node':
+//////                print_r(sprintf($format, " ", $items["key"], " ") . "\n");
+////                if (is_array($items["value"])) {
+////                    print_r(sprintf($format, " ", $items["key"], renderDiff($items["value"])) . "\n");
+//////                    renderDiff($items["value"]);
+////                } else {
+//////                    print_r(sprintf($format, " ", $items["key"], " ") . "\n");
+////                }
+////                break;
+//            case 'unchanged':
+//                if (is_array($items["value"])) {
+//                    print_r(sprintf($format, " ", $items["key"], " ") . "\n");
+//                    print_r(sprintf($format, " ", $items["key"], renderDiff($items["value"])) . "\n");
+//                    break;
+//                } else {
+//                    print_r(sprintf($format, " ", $items["key"], (string)$items["value"]) . "\n");
+//                }
+//                break;
+//            case 'deleted':
+//                if (is_array($items["value"])) {
+//                    print_r(sprintf($format, "-", $items["key"], " ") . "\n");
+//                    print_r(sprintf($format, "-", $items["key"], renderDiff($items["value"])) . "\n");
+//                    break;
+//                } else {
+//                    print_r(sprintf($format, "-", $items["key"], (string)$items["value"]) . "\n");
+//                }
+//                break;
+//            case 'added':
+//                if (is_array($items["value"])) {
+//                    print_r(sprintf($format, "+", $items["key"], renderDiff($items["value"])) . "\n");
+//                    break;
+//                } else {
+//                    print_r(sprintf($format, "+", $items["key"], (string)$items["value"]) . "\n");
+//                }
+//                break;
+//        }
     }
-    return "{\n" . $result . "}";
+//    echo "\n\n ===================================================================";
+//    print_r($result);
+    return $result;
 }
 
-function stylish(array $allDiffer): void
+function stylish(array $allDiffer): string
 {
-    array_map(function ($items) {
-        if (is_array($items) && key_exists('mark', $items) ) {
-            renderDiff($items);
-        }
-    }, $allDiffer);
+    return renderDiff($allDiffer);
+
+//    array_map(function ($items) {
+//        if (is_array($items) && key_exists('mark', $items) ) {
+//            renderDiff($items);
+//        }
+//    }, $allDiffer);
 //    return $result;
 }
 
