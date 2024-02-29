@@ -3,31 +3,7 @@
 namespace App\Differ;
 
 use function App\Parser\parse;
-use function App\Stylish\stylish;
-
-//function render(array $diff): string
-//{
-//    $format = '  %s %s: %s';
-//    $result = "";
-//    foreach ($diff as $items) {
-//        switch ($items["mark"]) {
-//            case 'unchanged':
-//                $result .= sprintf($format, " ", $items["key"], (string)$items["beforeValue"]) . "\n";
-//                break;
-//            case 'changed':
-//                $result .= sprintf($format, "-", $items["key"], (string)$items["beforeValue"])
-//                    . "\n" . sprintf($format, "+", $items["key"], (string)$items["afterValue"]) . "\n";
-//                break;
-//            case 'deleted':
-//                $result .= sprintf($format, "-", $items["key"], (string)$items["beforeValue"]) . "\n";
-//                break;
-//            case 'added':
-//                $result .= sprintf($format, "+", $items["key"], (string)$items["afterValue"]) . "\n";
-//                break;
-//        }
-//    }
-//    return "{\n" . $result . "}";
-//}
+use function App\Stylish\renderDiff;
 
 function getValue(mixed $value): string
 {
@@ -53,13 +29,12 @@ function setMessage(string $key, mixed $value, string $type): array
     ];
 }
 
-function genDiff(string $pathToFile1, string $pathToFile2): string
+function genDiff(string $pathToFile1, string $pathToFile2, string $format): string
 {
     $file1 = parse($pathToFile1);
     $file2 = parse($pathToFile2);
     $allDiffer = getDiff($file1, $file2);
-//    print_r(stylish($allDiffer));
-    return stylish($allDiffer);
+    return renderDiff($allDiffer, $format);
 }
 
 function isArray(string $key, mixed $items, string $type): array

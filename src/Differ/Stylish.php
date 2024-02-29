@@ -2,7 +2,7 @@
 
 namespace App\Stylish;
 
-function renderDiff(array $diff, int $level = 0): string
+function stylish(array $diff, int $level = 0): string
 {
     return array_reduce($diff, function ($acc, $items) use ($level) {
         $format = '%s %s: %s';
@@ -10,16 +10,19 @@ function renderDiff(array $diff, int $level = 0): string
         $indent = $level * 4 - 2;
         if (is_array($items['value'])) {
             $acc .= str_repeat(" ", $indent) . sprintf($format, $items["type"], $items["key"], "")
-                . " {\n" . renderDiff($items['value'], $level)
+                . "{\n" . stylish($items['value'], $level)
                 . str_repeat(" ", $indent) . "  }\n";
         } else {
-            $acc .= str_repeat(" ", $indent) . sprintf($format, $items["type"], $items["key"], $items["value"]) . "\n";
+            $acc .= str_repeat(" ", $indent) . rtrim(sprintf($format, $items["type"], $items["key"], $items["value"])) ."\n";
         }
         return $acc;
     }, '');
 }
 
-function stylish(array $allDiffer): string
+function renderDiff(array $allDiffer, string $format): string
 {
-    return "{\n" . renderDiff($allDiffer) . "}";
+    return match ($format) {
+        'stylish' => "{\n" . stylish($allDiffer) ."}",
+        default => "{\n" . stylish($allDiffer) . "}",
+    };
 }
