@@ -13,7 +13,9 @@ function stylish(array $diff, int $level = 0): string
                 . "{\n" . stylish($items['value'], $level)
                 . str_repeat(" ", $indent) . "  }\n";
         } else {
-            $acc .= str_repeat(" ", $indent) . rtrim(sprintf($format, $items["type"], $items["key"], $items["value"])) ."\n";
+            $acc .= str_repeat(" ", $indent)
+                . rtrim(sprintf($format, $items["type"], $items["key"], $items["value"]))
+                . "\n";
         }
         return $acc;
     }, '');
@@ -22,7 +24,7 @@ function stylish(array $diff, int $level = 0): string
 function renderDiff(array $allDiffer, string $format): string
 {
     return match ($format) {
-        'stylish' => "{\n" . stylish($allDiffer) ."}",
+        'stylish' => "{\n" . stylish($allDiffer) . "}",
         default => "{\n" . stylish($allDiffer) . "}",
     };
 }
