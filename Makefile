@@ -4,6 +4,12 @@ run-json: # output of the greeting
 run-yaml: # output of the greeting
 	./bin/gendiff tests/DifferTest/fixtures/file1.yaml tests/DifferTest/fixtures/file2.yaml
 
+run-rec-json: # output of the greeting
+	./bin/gendiff tests/DifferTest/fixtures/recurs1.json tests/DifferTest/fixtures/recurs2.json
+
+run-rec-yaml: # output of the greeting
+	./bin/gendiff tests/DifferTest/fixtures/recurs1.yaml tests/DifferTest/fixtures/recurs2.yaml
+
 stan:
 	php ./vendor/bin/phpstan analyse src --level 9
 
