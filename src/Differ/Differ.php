@@ -20,12 +20,13 @@ function parseFile(string $pathToFile): mixed
     return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 }
 
-function setMessage(string $key, mixed $value, string $type): array
+function setMessage(string $key, mixed $value1, mixed $value2, string $type): array
 {
     return [
         'key' => $key,
         'type' => $type,
-        'value' => gettype($value) != 'array' ? getValue($value) : $value,
+        'value1' => gettype($value1) != 'array' ? getValue($value1) : $value1,
+        'value2' => gettype($value2) != 'array' ? getValue($value2) : $value2,
     ];
 }
 
@@ -35,14 +36,15 @@ function genDiff(string $pathToFile1, string $pathToFile2, string $format): stri
     $file2 = parse($pathToFile2);
     $allDiffer = getDiff($file1, $file2);
     return renderDiff($allDiffer, $format);
+//    print_r($allDiffer);
 }
 
-function isArray(string $key, mixed $items, string $type): array
+function isArray(mixed $items): mixed
 {
     if (is_array($items)) {
-        return setMessage($key, getDiff($items, $items), $type);
+        return getDiff($items, $items);
     } else {
-        return setMessage($key, $items, $type);
+        return $items;
     }
 }
 
@@ -54,18 +56,45 @@ function getDiff(array $file1, array $file2): array
     return array_reduce($uniqueFilesKeys, function ($acc, $items) use ($file1, $file2) {
         if (key_exists($items, $file1) && key_exists($items, $file2)) {
             if (is_array($file1[$items]) && is_array($file2[$items])) {
-                $acc[] = setMessage($items, getDiff($file1[$items], $file2[$items]), ' ');
+                $acc[] = setMessage($items, getDiff($file1[$items], $file2[$items]), null, 'unchanged');
             } elseif ($file1[$items] === $file2[$items]) {
-                $acc[] = setMessage($items, $file1[$items], ' ');
+                $acc[] = setMessage($items, $file1[$items], $file1[$items], 'unchanged');
             } else {
-                $acc[] = isArray($items, $file1[$items], '-');
-                $acc[] = isArray($items, $file2[$items], '+');
+                $deletedItems = setMessage($items, isArray($file1[$items]), null, 'deleted');
+                $addedItems = setMessage($items, null, isArray($file2[$items]), 'added');
+                $acc[] = setMessage($items,
+                    $deletedItems,
+                    $addedItems, 'changed');
             }
         } elseif (key_exists($items, $file1) && !key_exists($items, $file2)) {
-            $acc[] = isArray($items, $file1[$items], '-');
+            $acc[] = setMessage($items, isArray($file1[$items]), null, 'deleted');
         } else {
-            $acc[] = isArray($items, $file2[$items], '+');
+            $acc[] = setMessage($items, null, isArray($file2[$items]), 'added');
         }
         return $acc;
     }, []);
 }
+
+//function getDiff(array $file1, array $file2): array
+//{
+//    $filesKeys = array_merge(array_keys($file1), array_keys($file2));
+//    $uniqueFilesKeys = (array_unique($filesKeys));
+//    sort($uniqueFilesKeys);
+//    return array_reduce($uniqueFilesKeys, function ($acc, $items) use ($file1, $file2) {
+//        if (key_exists($items, $file1) && key_exists($items, $file2)) {
+//            if (is_array($file1[$items]) && is_array($file2[$items])) {
+//                $acc[] = setMessage($items, getDiff($file1[$items], $file2[$items]), ' ');
+//            } elseif ($file1[$items] === $file2[$items]) {
+//                $acc[] = setMessage($items, $file1[$items], ' ');
+//            } else {
+//                $acc[] = isArray($items, $file1[$items], '-');
+//                $acc[] = isArray($items, $file2[$items], '+');
+//            }
+//        } elseif (key_exists($items, $file1) && !key_exists($items, $file2)) {
+//            $acc[] = isArray($items, $file1[$items], '-');
+//        } else {
+//            $acc[] = isArray($items, $file2[$items], '+');
+//        }
+//        return $acc;
+//    }, []);
+//}
