@@ -22,7 +22,8 @@ function getItems(string $type, string $key, string $value): string
     return $items;
 }
 
-function getDiffMessage(int $level, string $type, string $key, mixed $value): string {
+function getDiffMessage(int $level, string $type, string $key, mixed $value): string
+{
     $indent = $level * 4 - 2;
     $result = "";
     if (is_array($value)) {
@@ -42,8 +43,10 @@ function stylish(array $diff, int $level = 0): string
     return array_reduce($diff, function ($acc, $items) use ($level) {
         $level++;
         $indent = $level * 4 - 2;
-        if($items["type"] != 'changed') {
-            ($items["type"] === 'unchanged' || $items["type"] === 'deleted') ?  $value =  $items['before'] : $value =  $items['after'];
+        if ($items["type"] != 'changed') {
+            ($items["type"] === 'unchanged' || $items["type"] === 'deleted')
+                ?  $value =  $items['before']
+                : $value =  $items['after'];
             $acc .= getDiffMessage($level, $items["type"], $items["key"], $value);
         } else {
             $deletedItems = $items["before"];

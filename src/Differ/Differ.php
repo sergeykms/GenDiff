@@ -62,9 +62,7 @@ function getDiff(array $file1, array $file2): array
             } else {
                 $deletedItems = setMessage($items, isArray($file1[$items]), null, 'deleted');
                 $addedItems = setMessage($items, null, isArray($file2[$items]), 'added');
-                $acc[] = setMessage($items,
-                    $deletedItems,
-                    $addedItems, 'changed');
+                $acc[] = setMessage($items, $deletedItems, $addedItems, 'changed');
             }
         } elseif (key_exists($items, $file1) && !key_exists($items, $file2)) {
             $acc[] = setMessage($items, isArray($file1[$items]), null, 'deleted');
