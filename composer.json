@@ -12,6 +12,7 @@
             "src/Differ/Differ.php",
             "src/Differ/Parser.php",
             "src/Formatters/Stylish.php",
+            "src/Formatters/Plain.php",
             "src/Formatters.php"
         ]
     },
