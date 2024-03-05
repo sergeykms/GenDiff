@@ -1,0 +1,184 @@
+[
+    {
+        "key": "common",
+        "type": "node",
+        "value": [
+            {
+                "key": "follow",
+                "type": "added",
+                "value": "false"
+            },
+            {
+                "key": "setting1",
+                "type": "unchanged",
+                "value": "Value 1"
+            },
+            {
+                "key": "setting2",
+                "type": "deleted",
+                "value": "200"
+            },
+            {
+                "key": "setting3",
+                "type": "changed",
+                "before": {
+                    "key": "setting3",
+                    "type": "deleted",
+                    "value": "true"
+                },
+                "after": {
+                    "key": "setting3",
+                    "type": "added",
+                    "value": "null"
+                }
+            },
+            {
+                "key": "setting4",
+                "type": "added",
+                "value": "blah blah"
+            },
+            {
+                "key": "setting5",
+                "type": "added",
+                "value": [
+                    {
+                        "key": "key5",
+                        "type": "unchanged",
+                        "value": "value5"
+                    }
+                ]
+            },
+            {
+                "key": "setting6",
+                "type": "node",
+                "value": [
+                    {
+                        "key": "doge",
+                        "type": "node",
+                        "value": [
+                            {
+                                "key": "wow",
+                                "type": "changed",
+                                "before": {
+                                    "key": "wow",
+                                    "type": "deleted",
+                                    "value": ""
+                                },
+                                "after": {
+                                    "key": "wow",
+                                    "type": "added",
+                                    "value": "so much"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "key": "key",
+                        "type": "unchanged",
+                        "value": "value"
+                    },
+                    {
+                        "key": "ops",
+                        "type": "added",
+                        "value": "vops"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "group1",
+        "type": "node",
+        "value": [
+            {
+                "key": "baz",
+                "type": "changed",
+                "before": {
+                    "key": "baz",
+                    "type": "deleted",
+                    "value": "bas"
+                },
+                "after": {
+                    "key": "baz",
+                    "type": "added",
+                    "value": "bars"
+                }
+            },
+            {
+                "key": "foo",
+                "type": "unchanged",
+                "value": "bar"
+            },
+            {
+                "key": "nest",
+                "type": "changed",
+                "before": {
+                    "key": "nest",
+                    "type": "deleted",
+                    "value": [
+                        {
+                            "key": "key",
+                            "type": "unchanged",
+                            "value": "value"
+                        }
+                    ]
+                },
+                "after": {
+                    "key": "nest",
+                    "type": "added",
+                    "value": "str"
+                }
+            }
+        ]
+    },
+    {
+        "key": "group2",
+        "type": "deleted",
+        "value": [
+            {
+                "key": "abc",
+                "type": "unchanged",
+                "value": "12345"
+            },
+            {
+                "key": "deep",
+                "type": "node",
+                "value": [
+                    {
+                        "key": "id",
+                        "type": "unchanged",
+                        "value": "45"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "group3",
+        "type": "added",
+        "value": [
+            {
+                "key": "deep",
+                "type": "node",
+                "value": [
+                    {
+                        "key": "id",
+                        "type": "node",
+                        "value": [
+                            {
+                                "key": "number",
+                                "type": "unchanged",
+                                "value": "45"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "fee",
+                "type": "unchanged",
+                "value": "100500"
+            }
+        ]
+    }
+]

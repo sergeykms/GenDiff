@@ -13,6 +13,9 @@ run-rec-json: # output of the greeting
 run-rec-json-plain: # output of the greeting
 	./bin/gendiff --format plain tests/DifferTest/fixtures/recurs1.json tests/DifferTest/fixtures/recurs2.json
 
+run-rec-json-json: # output of the greeting
+	./bin/gendiff --format json tests/DifferTest/fixtures/recurs1.json tests/DifferTest/fixtures/recurs2.json
+
 run-rec-yaml: # output of the greeting
 	./bin/gendiff tests/DifferTest/fixtures/recurs1.yaml tests/DifferTest/fixtures/recurs2.yaml
 
