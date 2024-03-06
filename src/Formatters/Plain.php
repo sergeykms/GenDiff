@@ -7,13 +7,7 @@ function getValue(mixed $value): string
     if (is_array($value)) {
         return "[complex value]";
     } else {
-        return match (gettype($value)) {
-            'boolean' => (bool)$value,
-            'NULL' => null,
-            'string' => "'" . $value . "'",
-            default => $value,
-//        return c;
-        };
+        return "'" . $value . "'";
     }
 }
 
