@@ -38,7 +38,7 @@ function createItem(string $type, string $key, mixed $before, mixed $after = nul
     }
 }
 
-function genDiff(string $pathToFile1, string $pathToFile2, string $format): string
+function genDiff(string $pathToFile1, string $pathToFile2, string $format = "stylish"): string
 {
     $file1 = parse($pathToFile1);
     $file2 = parse($pathToFile2);
