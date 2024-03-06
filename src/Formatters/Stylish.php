@@ -12,7 +12,8 @@ function createMessage(int $level, string $key, mixed $value, string $mark): str
             . str_repeat(" ", $indent) . "  }\n";
     } else {
         return str_repeat(" ", $indent)
-            . rtrim(sprintf($format, $mark, $key, $value))
+//            . rtrim(sprintf($format, $mark, $key, $value))
+            . sprintf($format, $mark, $key, $value)
             . "\n";
     }
 }
