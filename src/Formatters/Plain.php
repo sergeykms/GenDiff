@@ -7,7 +7,7 @@ function getValue(mixed $value): string
     if (is_array($value)) {
         return "[complex value]";
     } else {
-        return "'" . $value . "'";
+        return $value;
     }
 }
 
