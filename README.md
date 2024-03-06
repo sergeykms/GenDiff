@@ -6,3 +6,11 @@
 
 
 <a href="https://codeclimate.com/github/sergeykms/GenDiff/test_coverage"><img src="https://api.codeclimate.com/v1/badges/799fff2f02dc1eb97dca/test_coverage" /></a>
+
+Setup
+```
+git clone git@github.com:sergeykms/GenDiff.git
+cd GenDiff
+make install
+```
+Демо https://asciinema.org/a/1UckA7LMMFsr2gv2vPBJLfILd

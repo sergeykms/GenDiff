@@ -44,8 +44,6 @@ function genDiff(string $pathToFile1, string $pathToFile2, string $format): stri
     $file2 = parse($pathToFile2);
     $allDiffer = getDiff($file1, $file2);
     return formatters($allDiffer, $format);
-//    return renderDiff($allDiffer, $format);
-//    print_r($allDiffer);
 }
 
 function isArray(mixed $items): mixed

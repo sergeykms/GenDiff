@@ -12,6 +12,6 @@ function formatters(array $allDiffer, string $format): string
         'stylish' => "{\n" . stylish($allDiffer) . "}",
         'plain' => plain($allDiffer),
         'json' => json($allDiffer),
-        default => 'unknown',
+        default => throw new \Exception("Format {$format} not supported."),
     };
 }

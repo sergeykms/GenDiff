@@ -21,8 +21,7 @@ function parse(string $pathToFile): array
     $extension = (string)pathinfo($pathToFile, PATHINFO_EXTENSION);
     return match ($extension) {
         "json" => parseJson($pathToFile),
-        'yaml' => parseYaml($pathToFile),
-        'yml' => parseYaml($pathToFile),
+        'yaml', 'yml' => parseYaml($pathToFile),
         default => throw new \Exception("Format {$extension} not supported."),
     };
 }

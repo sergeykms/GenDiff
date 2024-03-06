@@ -2,7 +2,7 @@
 
 namespace App\Formatters\Stylish;
 
-function createDiffMessage(int $level, string $key, mixed $value, string $mark): string
+function createMessage(int $level, string $key, mixed $value, string $mark): string
 {
     $format = '%s %s: %s';
     $indent = $level * 4 - 2;
@@ -24,19 +24,19 @@ function stylish(array $diff, int $level = 0): string
         switch ($items["type"]) {
             case 'unchanged':
             case 'node':
-                $acc .= createDiffMessage($level, $items["key"], $items['value'], " ");
+                $acc .= createMessage($level, $items["key"], $items['value'], " ");
                 break;
             case 'deleted':
-                $acc .= createDiffMessage($level, $items["key"], $items['value'], "-");
+                $acc .= createMessage($level, $items["key"], $items['value'], "-");
                 break;
             case 'added':
-                $acc .= createDiffMessage($level, $items["key"], $items['value'], "+");
+                $acc .= createMessage($level, $items["key"], $items['value'], "+");
                 break;
             case 'changed':
                 $deletedItems = $items["before"];
                 $addedItems = $items["after"];
-                $acc .= createDiffMessage($level, $deletedItems["key"], $deletedItems["value"], "-");
-                $acc .= createDiffMessage($level, $addedItems["key"], $addedItems["value"], "+");
+                $acc .= createMessage($level, $deletedItems["key"], $deletedItems["value"], "-");
+                $acc .= createMessage($level, $addedItems["key"], $addedItems["value"], "+");
                 break;
         }
         return $acc;
