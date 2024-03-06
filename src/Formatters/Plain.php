@@ -20,16 +20,16 @@ function plain(array $diff, string $level = ""): string
                 $acc .=  plain($items['value'], $level);
                 break;
             case 'deleted':
-                $acc .= "Property " .  "`" . substr($level, 0, -1) . "`" . " was removed" . "\n";
+                $acc .= "Property " .  "'" . substr($level, 0, -1) . "'" . " was removed" . "\n";
                 break;
             case 'added':
-                $acc .= "Property " . "`" . substr($level, 0, -1) . "`"
+                $acc .= "Property " . "'" . substr($level, 0, -1) . "'"
                     . " was added with value: " . getValue($items['value']) . "\n";
                 break;
             case 'changed':
                 $deletedItems = $items["before"];
                 $addedItems = $items["after"];
-                $acc .= "Property " . "`" . substr($level, 0, -1) . "`" . " was updated. From "
+                $acc .= "Property " . "'" . substr($level, 0, -1) . "'" . " was updated. From "
                     . getValue($deletedItems["value"]) . " to " . getValue($addedItems["value"]) . "\n";
                 break;
         }
