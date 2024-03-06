@@ -4,7 +4,6 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/799fff2f02dc1eb97dca/maintainability)](https://codeclimate.com/github/sergeykms/GenDiff/maintainability)
 
-
 <a href="https://codeclimate.com/github/sergeykms/GenDiff/test_coverage"><img src="https://api.codeclimate.com/v1/badges/799fff2f02dc1eb97dca/test_coverage" /></a>
 
 Setup
