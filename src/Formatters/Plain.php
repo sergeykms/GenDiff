@@ -8,8 +8,8 @@ function getValue(mixed $value): string
         return "[complex value]";
     } else {
         return match (gettype($value)) {
-            'boolean' => $value ? 'true' : 'false',
-            'NULL' => 'null',
+            'boolean' => (bool)$value,
+            'NULL' => null,
             'string' => "'" . $value . "'",
             default => $value,
 //        return c;
