@@ -2,12 +2,17 @@
 
 namespace App\Formatters\Plain;
 
-function getValue(mixed $value): string
+function getValue(mixed $value): mixed
 {
     if (is_array($value)) {
         return "[complex value]";
     } else {
-        return "'" . $value . "'";
+        return match (gettype($value)) {
+            'boolean' => $value ? true : false,
+            'NULL' => null,
+            default => "'" . $value . "'",
+        };
+//        return "'" . $value . "'";
     }
 }
 
