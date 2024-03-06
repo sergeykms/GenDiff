@@ -6,7 +6,7 @@
             {
                 "key": "follow",
                 "type": "added",
-                "value": "false"
+                "value": false
             },
             {
                 "key": "setting1",
@@ -24,12 +24,12 @@
                 "before": {
                     "key": "setting3",
                     "type": "deleted",
-                    "value": "true"
+                    "value": true
                 },
                 "after": {
                     "key": "setting3",
                     "type": "added",
-                    "value": "null"
+                    "value": null
                 }
             },
             {

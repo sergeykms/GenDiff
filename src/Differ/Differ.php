@@ -7,11 +7,14 @@ use function App\Formatters\formatters;
 
 function getValue(mixed $value): mixed
 {
-    return match (gettype($value)) {
-        'boolean' => $value ? 'true' : 'false',
-        'NULL' => 'null',
-        default => $value,
-    };
+//    return match (gettype($value)) {
+//        'boolean' => $value ? 'true' : 'false',
+//        'NULL' => 'null',
+//        'int' => (int) $value,
+//        default => $value,
+//    };
+
+    return $value;
 }
 
 function parseFile(string $pathToFile): mixed
@@ -43,6 +46,7 @@ function genDiff(string $pathToFile1, string $pathToFile2, string $format = "sty
     $file1 = parse($pathToFile1);
     $file2 = parse($pathToFile2);
     $allDiffer = getDiff($file1, $file2);
+//    print_r($allDiffer);
     return formatters($allDiffer, $format);
 }
 
