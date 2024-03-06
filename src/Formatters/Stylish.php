@@ -2,6 +2,15 @@
 
 namespace App\Formatters\Stylish;
 
+function getValue(mixed $value): mixed
+{
+    return match (gettype($value)) {
+        'boolean' => $value ? 'true' : 'false',
+        'NULL' => 'null',
+        default => $value,
+    };
+}
+
 function createMessage(int $level, string $key, mixed $value, string $mark): string
 {
     $format = '%s %s: %s';
@@ -12,7 +21,8 @@ function createMessage(int $level, string $key, mixed $value, string $mark): str
             . str_repeat(" ", $indent) . "  }\n";
     } else {
         return str_repeat(" ", $indent)
-            . rtrim(sprintf($format, $mark, $key, $value))
+//            . rtrim(sprintf($format, $mark, $key, $value))
+            . sprintf($format, $mark, $key, getValue($value))
             . "\n";
     }
 }
