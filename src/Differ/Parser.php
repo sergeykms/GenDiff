@@ -7,7 +7,6 @@ use Symfony\Component\Yaml\Yaml;
 function parseJson(string $pathToFile): mixed
 {
     $content = (string)file_get_contents($pathToFile);
-
     return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 }
 
