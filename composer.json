@@ -23,10 +23,6 @@
             "email": "serpp@me.com"
         }
     ],
-    "scripts": {
-        "phpcs": "phpcs",
-        "phpunit": "phpunit"
-    },
     "require": {
         "docopt/docopt": "^1.0",
         "symfony/yaml": "^5.3",
