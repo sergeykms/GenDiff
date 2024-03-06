@@ -2,7 +2,7 @@
 
 namespace App\Formatters\Plain;
 
-function getValue(mixed $value): string
+function getValue(mixed $value): mixed
 {
     if (is_array($value)) {
         return "[complex value]";
