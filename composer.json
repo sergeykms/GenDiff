@@ -11,7 +11,10 @@
             "src/autoload.php",
             "src/Differ/Differ.php",
             "src/Differ/Parser.php",
-            "src/Differ/Stylish.php"
+            "src/Formatters/Stylish.php",
+            "src/Formatters/Plain.php",
+            "src/Formatters/Json.php",
+            "src/Formatters.php"
         ]
     },
     "bin": [
