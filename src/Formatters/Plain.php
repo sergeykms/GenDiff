@@ -10,7 +10,7 @@ function getValue(mixed $value): mixed
         return match (gettype($value)) {
             'boolean' => $value ? 'true' : 'false',
             'NULL' => 'null',
-            'integer' => (int) $value,
+            'integer' => $value,
             default => "'" . $value . "'",
         };
     }
