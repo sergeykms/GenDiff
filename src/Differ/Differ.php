@@ -5,7 +5,7 @@ namespace Differ\Differ;
 use function App\Parser\parse;
 use function App\Formatters\formatters;
 
-function getValue(mixed $value): string
+function getValue(mixed $value): mixed
 {
     return match (gettype($value)) {
         'boolean' => $value ? 'true' : 'false',
