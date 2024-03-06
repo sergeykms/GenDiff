@@ -33,7 +33,7 @@ class DifferTest extends TestCase
         $result = genDiff($recurs1, $recurs2, 'stylish');
         $expected = file_get_contents(__DIR__ . "/fixtures/expected2.txt");
         $this->assertEquals($expected, $result);
-
+//
         $recurs1 = __DIR__ . "/fixtures/recurs1.json";
         $recurs2 = __DIR__ . "/fixtures/recurs2.json";
         $result = genDiff($recurs1, $recurs2, 'plain');

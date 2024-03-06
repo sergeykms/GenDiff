@@ -16,7 +16,7 @@
             {
                 "key": "setting2",
                 "type": "deleted",
-                "value": "200"
+                "value": 200
             },
             {
                 "key": "setting3",
@@ -62,7 +62,7 @@
                                 "before": {
                                     "key": "wow",
                                     "type": "deleted",
-                                    "value": ""
+                                    "value": 1
                                 },
                                 "after": {
                                     "key": "wow",
@@ -138,7 +138,7 @@
             {
                 "key": "abc",
                 "type": "unchanged",
-                "value": "12345"
+                "value": 12345
             },
             {
                 "key": "deep",
@@ -147,7 +147,7 @@
                     {
                         "key": "id",
                         "type": "unchanged",
-                        "value": "45"
+                        "value": 45
                     }
                 ]
             }
@@ -168,7 +168,7 @@
                             {
                                 "key": "number",
                                 "type": "unchanged",
-                                "value": "45"
+                                "value": 45
                             }
                         ]
                     }
@@ -177,7 +177,7 @@
             {
                 "key": "fee",
                 "type": "unchanged",
-                "value": "100500"
+                "value": 100500
             }
         ]
     }
