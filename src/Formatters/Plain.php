@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Formatters\Plain;
+namespace Formatters\Plain;
 
 function getValue(mixed $value): mixed
 {

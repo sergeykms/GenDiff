@@ -2,8 +2,8 @@
 
 namespace Differ\Differ;
 
-use function App\Parser\parse;
-use function App\Formatters\formatters;
+use function Differ\Parser\parse;
+use function Formatters\formatters;
 
 function getValue(mixed $value): mixed
 {
@@ -23,30 +23,44 @@ function parseFile(string $pathToFile): mixed
     return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 }
 
-function createItem(string $type, string $key, mixed $before, mixed $after = null): array
+//function createItem(string $type, string $key, mixed $before, mixed $after = null): array
+//{
+//    if (!$after) {
+//        return [
+//            'key' => $key,
+//            'type' => $type,
+//            'value' => gettype($before) != 'array' ? getValue($before) : $before,
+//        ];
+//    } else {
+//        return [
+//            'key' => $key,
+//            'type' => $type,
+//            'before' => gettype($before) != 'array' ? getValue($before) : $before,
+//            'after' => gettype($after) != 'array' ? getValue($after) : $after,
+//        ];
+//    }
+//}
+
+function createNode(string $type, string $key, mixed $before, mixed $after, mixed $children = null): array
 {
-    if (!$after) {
-        return [
-            'key' => $key,
-            'type' => $type,
-            'value' => gettype($before) != 'array' ? getValue($before) : $before,
-        ];
-    } else {
-        return [
-            'key' => $key,
-            'type' => $type,
-            'before' => gettype($before) != 'array' ? getValue($before) : $before,
-            'after' => gettype($after) != 'array' ? getValue($after) : $after,
-        ];
-    }
+    return [
+        'type' => $type,
+        'key' => $key,
+        'before' => gettype($before) != 'array' ? getValue($before) : $before,
+        'after' => gettype($after) != 'array' ? getValue($after) : $after,
+        "children" => $children,
+    ];
 }
 
 function genDiff(string $pathToFile1, string $pathToFile2, string $format = "stylish"): string
+//function genDiff(string $pathToFile1, string $pathToFile2, string $format = "stylish"): void
+
 {
     $file1 = parse($pathToFile1);
     $file2 = parse($pathToFile2);
     $allDiffer = getDiff($file1, $file2);
 //    print_r($allDiffer);
+//    print_r(formatters($allDiffer, $format));
     return formatters($allDiffer, $format);
 }
 
@@ -64,22 +78,20 @@ function getDiff(array $file1, array $file2): array
     $filesKeys = array_merge(array_keys($file1), array_keys($file2));
     $uniqueFilesKeys = (array_unique($filesKeys));
     sort($uniqueFilesKeys);
-    return array_reduce($uniqueFilesKeys, function ($acc, $items) use ($file1, $file2) {
+    return array_map(function ($items) use ($file1, $file2) {
         if (key_exists($items, $file1) && key_exists($items, $file2)) {
             if (is_array($file1[$items]) && is_array($file2[$items])) {
-                $acc[] = createItem('node', $items, getDiff($file1[$items], $file2[$items]));
+                $node = createNode('node', $items, null, null, getDiff($file1[$items], $file2[$items]));
             } elseif ($file1[$items] === $file2[$items]) {
-                $acc[] = createItem('unchanged', $items, $file1[$items]);
+                $node = createNode('unchanged', $items, $file1[$items], $file2[$items]);
             } else {
-                $deletedItems = createItem('deleted', $items, isArray($file1[$items]));
-                $addedItems = createItem('added', $items, isArray($file2[$items]),);
-                $acc[] = createItem('changed', $items, $deletedItems, $addedItems,);
+                $node = createNode('changed', $items, $file1[$items], $file2[$items]);
             }
         } elseif (key_exists($items, $file1) && !key_exists($items, $file2)) {
-            $acc[] = createItem('deleted', $items, isArray($file1[$items]));
+            $node = createNode('deleted', $items, $file1[$items], null);
         } else {
-            $acc[] = createItem('added', $items, isArray($file2[$items]),);
+            $node = createNode('added', $items, null, $file2[$items]);
         }
-        return $acc;
-    }, []);
+        return $node;
+    }, $uniqueFilesKeys);
 }
