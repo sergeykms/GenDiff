@@ -82,4 +82,3 @@ function stylish(array $diff, int $level = 1): string
     }, []);
     return implode("", $message);
 }
-

@@ -7,7 +7,6 @@ use function Formatters\Plain\plain;
 use function Formatters\Json\json;
 
 function formatters(array $allDiffer, string $format): string
-
 {
     return match ($format) {
         'stylish' => "{" . stylish($allDiffer) . "\n}",
