@@ -23,24 +23,6 @@ function parseFile(string $pathToFile): mixed
     return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 }
 
-//function createItem(string $type, string $key, mixed $before, mixed $after = null): array
-//{
-//    if (!$after) {
-//        return [
-//            'key' => $key,
-//            'type' => $type,
-//            'value' => gettype($before) != 'array' ? getValue($before) : $before,
-//        ];
-//    } else {
-//        return [
-//            'key' => $key,
-//            'type' => $type,
-//            'before' => gettype($before) != 'array' ? getValue($before) : $before,
-//            'after' => gettype($after) != 'array' ? getValue($after) : $after,
-//        ];
-//    }
-//}
-
 function createNode(string $type, string $key, mixed $before, mixed $after, mixed $children = null): array
 {
     return [
@@ -53,14 +35,10 @@ function createNode(string $type, string $key, mixed $before, mixed $after, mixe
 }
 
 function genDiff(string $pathToFile1, string $pathToFile2, string $format = "stylish"): string
-//function genDiff(string $pathToFile1, string $pathToFile2, string $format = "stylish"): void
-
 {
     $file1 = parse($pathToFile1);
     $file2 = parse($pathToFile2);
     $allDiffer = getDiff($file1, $file2);
-//    print_r($allDiffer);
-//    print_r(formatters($allDiffer, $format));
     return formatters($allDiffer, $format);
 }
 
