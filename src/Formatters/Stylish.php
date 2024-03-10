@@ -9,7 +9,7 @@ function renderArray(array $array, int $level): string
 
     $keys = array_keys($array);
     $viewArray = array_map(function ($key) use ($array, $level,) {
-        $level = $level + 1;
+        $level++;
         $indentBefore = str_repeat(" ", $level * STEP_INDENT - 2);
         $indentAfter = str_repeat(" ", $level * STEP_INDENT);
         if (is_array($array[$key])) {
@@ -69,8 +69,8 @@ function stylish(array $diff, int $level = 1): string
     $message = array_map(function ($items) use ($level) {
         switch ($items["type"]) {
             case 'node':
-                $level++;
-                return renderNode($level, $items["key"], stylish($items['children'], $level), " ");
+//                $level = $level + 1;
+                return renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
             case 'unchanged':
                 return renderItem($level, $items["key"], $items['before'], " ");
             case 'deleted':
