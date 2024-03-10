@@ -5,7 +5,6 @@
     "license": "MIT",
     "autoload": {
         "files": [
-            "src/autoload.php",
             "src/Differ/Differ.php",
             "src/Differ/Parser.php",
             "src/Formatters/Stylish.php",
