@@ -9,7 +9,7 @@ function renderArray(array $array, int $level): string
 
     $keys = array_keys($array);
     $viewArray = array_map(function ($key) use ($array, $level,) {
-        $level++;
+        $level = $level + 1;
         $indentBefore = str_repeat(" ", $level * STEP_INDENT - 2);
         $indentAfter = str_repeat(" ", $level * STEP_INDENT);
         if (is_array($array[$key])) {
