@@ -61,27 +61,20 @@ function renderNode(int $level, string $key, mixed $value, string $mark): string
 function stylish(array $diff, int $level = 1): string
 {
     $message = array_map(function ($items) use ($level) {
-//        $value = "";
         switch ($items["type"]) {
             case 'node':
                 $level++;
                 return renderNode($level, $items["key"], stylish($items['children'], $level), " ");
-//                break;
             case 'unchanged':
                 return renderItem($level, $items["key"], $items['before'], " ");
-//                break;
             case 'deleted':
                 return renderItem($level, $items["key"], $items['before'], "-");
-//                break;
             case 'added':
                 return renderItem($level, $items["key"], $items['after'], "+");
-//                break;
             case 'changed':
                 return implode("", [renderItem($level, $items["key"], $items['before'], "-"),
                     renderItem($level, $items["key"], $items['after'], "+")]);
-//                break;
         }
-//        return $value;
     }, $diff);
     return implode("", $message);
 }
