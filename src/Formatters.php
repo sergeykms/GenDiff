@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Formatters;
+namespace Formatters;
 
-use function App\Formatters\Stylish\stylish;
-use function App\Formatters\Plain\plain;
-use function App\Formatters\Json\json;
+use function Formatters\Stylish\getStylish;
+use function Formatters\Plain\getPlain;
+use function Formatters\Json\json;
 
 function formatters(array $allDiffer, string $format): string
 {
     return match ($format) {
-        'stylish' => "{\n" . stylish($allDiffer) . "}",
-        'plain' => plain($allDiffer),
+        'stylish' => getStylish($allDiffer),
+        'plain' => getPlain($allDiffer),
         'json' => json($allDiffer),
         default => throw new \Exception("Format {$format} not supported."),
     };

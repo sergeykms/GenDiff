@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Formatters\Plain;
+namespace Formatters\Plain;
 
 function getValue(mixed $value): mixed
 {
@@ -16,28 +16,28 @@ function getValue(mixed $value): mixed
     }
 }
 
-function plain(array $diff, string $level = ""): string
+function plain(array $diff, array $level = []): string
 {
-    return array_reduce($diff, function ($acc, $items) use ($level) {
-        $level .= $items["key"] . ".";
+    $message = array_map(function ($items) use ($level) {
+        $level[] = $items["key"];
         switch ($items["type"]) {
             case 'node':
-                $acc .= plain($items['value'], $level);
-                break;
+                return plain($items['children'], $level);
             case 'deleted':
-                $acc .= "Property " . "'" . substr($level, 0, -1) . "'" . " was removed" . "\n";
-                break;
+                $format = "Property '%s' was removed\n";
+                return sprintf($format, implode(".", $level));
             case 'added':
-                $acc .= "Property " . "'" . substr($level, 0, -1) . "'"
-                    . " was added with value: " . getValue($items['value']) . "\n";
-                break;
+                $format = "Property '%s' was added with value: %s\n";
+                return sprintf($format, implode(".", $level), getValue($items['after']));
             case 'changed':
-                $deletedItems = $items["before"];
-                $addedItems = $items["after"];
-                $acc .= "Property " . "'" . substr($level, 0, -1) . "'" . " was updated. From "
-                    . getValue($deletedItems["value"]) . " to " . getValue($addedItems["value"]) . "\n";
-                break;
+                $format = "Property '%s' was updated. From %s to %s\n";
+                return sprintf($format, implode(".", $level), getValue($items['before']), getValue($items['after']));
         }
-        return $acc;
-    }, '');
+    }, $diff);
+    return implode("", $message);
+}
+
+function getPlain(array $diff): string
+{
+    return plain($diff);
 }

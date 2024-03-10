@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Formatters\Json;
+namespace Formatters\Json;
 
 function json(array $diff): mixed
 {
