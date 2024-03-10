@@ -60,30 +60,58 @@ function renderNode(int $level, string $key, mixed $value, string $mark): string
 
 function stylish(array $diff, int $level = 1): string
 {
-    $message = array_reduce($diff, function ($acc, $items) use ($level) {
+    $message = array_map(function ($items) use ($level) {
+        $value = "";
         switch ($items["type"]) {
             case 'node':
                 $level++;
-                $acc[] = renderNode($level, $items["key"], stylish($items['children'], $level), " ");
+                $value =  renderNode($level, $items["key"], stylish($items['children'], $level), " ");
                 break;
             case 'unchanged':
-                $acc[] = renderItem($level, $items["key"], $items['before'], " ");
+                $value = renderItem($level, $items["key"], $items['before'], " ");
                 break;
             case 'deleted':
-                $acc[] = renderItem($level, $items["key"], $items['before'], "-");
+                $value = renderItem($level, $items["key"], $items['before'], "-");
                 break;
             case 'added':
-                $acc[] = renderItem($level, $items["key"], $items['after'], "+");
+                $value = renderItem($level, $items["key"], $items['after'], "+");
                 break;
             case 'changed':
-                $acc[] = renderItem($level, $items["key"], $items['before'], "-");
-                $acc[] = renderItem($level, $items["key"], $items['after'], "+");
+                $value = implode("", [renderItem($level, $items["key"], $items['before'], "-"),
+                    renderItem($level, $items["key"], $items['after'], "+")]);
                 break;
         }
-        return $acc;
-    }, []);
+        return $value;
+    }, $diff);
     return implode("", $message);
 }
+
+//function stylish(array $diff, int $level = 1): string
+//{
+//    $message = array_reduce($diff, function ($acc, $items) use ($level) {
+//        switch ($items["type"]) {
+//            case 'node':
+//                $level++;
+//                $acc[] = renderNode($level, $items["key"], stylish($items['children'], $level), " ");
+//                break;
+//            case 'unchanged':
+//                $acc[] = renderItem($level, $items["key"], $items['before'], " ");
+//                break;
+//            case 'deleted':
+//                $acc[] = renderItem($level, $items["key"], $items['before'], "-");
+//                break;
+//            case 'added':
+//                $acc[] = renderItem($level, $items["key"], $items['after'], "+");
+//                break;
+//            case 'changed':
+//                $acc[] = renderItem($level, $items["key"], $items['before'], "-");
+//                $acc[] = renderItem($level, $items["key"], $items['after'], "+");
+//                break;
+//        }
+//        return $acc;
+//    }, []);
+//    return implode("", $message);
+//}
 
 function getStylish(array $diff): string
 {
