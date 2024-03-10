@@ -2,6 +2,8 @@
 
 namespace Formatters\Plain;
 
+use function Functional\concat;
+
 function getValue(mixed $value): mixed
 {
     if (is_array($value)) {
@@ -16,22 +18,22 @@ function getValue(mixed $value): mixed
     }
 }
 
-function plain(array $diff, array $level = []): string
+function plain(array $diff, string $level = null): string
 {
     $message = array_map(function ($items) use ($level) {
-        $level[] = $items["key"];
+        $temp = $level != null ? concat($level, '.', $items["key"]) : $items["key"];
         switch ($items["type"]) {
             case 'node':
-                return plain($items['children'], $level);
+                return plain($items['children'], $temp);
             case 'deleted':
                 $format = "Property '%s' was removed\n";
-                return sprintf($format, implode(".", $level));
+                return sprintf($format, $temp);
             case 'added':
                 $format = "Property '%s' was added with value: %s\n";
-                return sprintf($format, implode(".", $level), getValue($items['after']));
+                return sprintf($format, $temp, getValue($items['after']));
             case 'changed':
                 $format = "Property '%s' was updated. From %s to %s\n";
-                return sprintf($format, implode(".", $level), getValue($items['before']), getValue($items['after']));
+                return sprintf($format, $temp, getValue($items['before']), getValue($items['after']));
         }
     }, $diff);
     return implode("", $message);

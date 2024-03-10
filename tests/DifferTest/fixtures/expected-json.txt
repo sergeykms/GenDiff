@@ -9,31 +9,36 @@
                 "type": "added",
                 "key": "follow",
                 "before": null,
-                "after": false
+                "after": false,
+                "children": null
             },
             {
                 "type": "unchanged",
                 "key": "setting1",
                 "before": "Value 1",
-                "after": "Value 1"
+                "after": "Value 1",
+                "children": null
             },
             {
                 "type": "deleted",
                 "key": "setting2",
                 "before": 200,
-                "after": null
+                "after": null,
+                "children": null
             },
             {
                 "type": "changed",
                 "key": "setting3",
                 "before": true,
-                "after": null
+                "after": null,
+                "children": null
             },
             {
                 "type": "added",
                 "key": "setting4",
                 "before": null,
-                "after": "blah blah"
+                "after": "blah blah",
+                "children": null
             },
             {
                 "type": "added",
@@ -41,7 +46,8 @@
                 "before": null,
                 "after": {
                     "key5": "value5"
-                }
+                },
+                "children": null
             },
             {
                 "type": "node",
@@ -59,7 +65,8 @@
                                 "type": "changed",
                                 "key": "wow",
                                 "before": 1,
-                                "after": "so much"
+                                "after": "so much",
+                                "children": null
                             }
                         ]
                     },
@@ -67,13 +74,15 @@
                         "type": "unchanged",
                         "key": "key",
                         "before": "value",
-                        "after": "value"
+                        "after": "value",
+                        "children": null
                     },
                     {
                         "type": "added",
                         "key": "ops",
                         "before": null,
-                        "after": "vops"
+                        "after": "vops",
+                        "children": null
                     }
                 ]
             }
@@ -89,13 +98,15 @@
                 "type": "changed",
                 "key": "baz",
                 "before": "bas",
-                "after": "bars"
+                "after": "bars",
+                "children": null
             },
             {
                 "type": "unchanged",
                 "key": "foo",
                 "before": "bar",
-                "after": "bar"
+                "after": "bar",
+                "children": null
             },
             {
                 "type": "changed",
@@ -103,7 +114,8 @@
                 "before": {
                     "key": "value"
                 },
-                "after": "str"
+                "after": "str",
+                "children": null
             }
         ]
     },
@@ -116,7 +128,8 @@
                 "id": 45
             }
         },
-        "after": null
+        "after": null,
+        "children": null
     },
     {
         "type": "added",
@@ -129,6 +142,7 @@
                 }
             },
             "fee": 100500
-        }
+        },
+        "children": null
     }
 ]

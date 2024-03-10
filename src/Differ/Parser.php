@@ -17,7 +17,7 @@ function parseYaml(string $pathToFile): mixed
 
 function parse(string $pathToFile): array
 {
-    $extension = (string)pathinfo($pathToFile, PATHINFO_EXTENSION);
+    $extension = pathinfo($pathToFile, PATHINFO_EXTENSION);
     return match ($extension) {
         "json" => parseJson($pathToFile),
         'yaml', 'yml' => parseYaml($pathToFile),

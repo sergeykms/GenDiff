@@ -1,22 +1,22 @@
-run-json: # output of the greeting
+run-json:
 	./bin/gendiff --format stylish tests/DifferTest/fixtures/file1.json tests/DifferTest/fixtures/file2.json
 
-run-json-plain: # output of the greeting
+run-json-plain:
 	./bin/gendiff --format plain tests/DifferTest/fixtures/file1.json tests/DifferTest/fixtures/file2.json
 
-run-yaml: # output of the greeting
+run-yaml:
 	./bin/gendiff tests/DifferTest/fixtures/file1.yaml tests/DifferTest/fixtures/file2.yaml
 
-run-rec-json: # output of the greeting
+run-rec-json:
 	./bin/gendiff --format stylish tests/DifferTest/fixtures/recurs1.json tests/DifferTest/fixtures/recurs2.json
 
-run-rec-json-plain: # output of the greeting
+run-rec-json-plain:
 	./bin/gendiff --format plain tests/DifferTest/fixtures/recurs1.json tests/DifferTest/fixtures/recurs2.json
 
-run-rec-json-json: # output of the greeting
+run-rec-json-json:
 	./bin/gendiff --format json tests/DifferTest/fixtures/recurs1.json tests/DifferTest/fixtures/recurs2.json
 
-run-rec-yaml: # output of the greeting
+run-rec-yaml: 
 	./bin/gendiff tests/DifferTest/fixtures/recurs1.yaml tests/DifferTest/fixtures/recurs2.yaml
 
 stan:
