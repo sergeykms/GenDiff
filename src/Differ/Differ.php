@@ -31,7 +31,7 @@ function createNode(string $type, string $key, mixed $before, mixed $after, mixe
         'before' => $before,
         'after' => $after,
     ];
-    if ($children) {
+    if ($children != null) {
         $diff["children"] = $children;
     }
     return $diff;
