@@ -4,6 +4,7 @@ namespace Differ\Differ;
 
 use function Differ\Parser\parse;
 use function Formatters\formatters;
+use function Functional\sort;
 
 function parseFile(string $pathToFile): mixed
 {
@@ -46,7 +47,7 @@ function getDiff(array $file1, array $file2): array
 {
     $filesKeys = array_merge(array_keys($file1), array_keys($file2));
     $uniqueFilesKeys = (array_unique($filesKeys));
-    sort($uniqueFilesKeys);
+    $sortedUniqueFilesKeys = sort($uniqueFilesKeys, fn ($left, $right) => strcmp($left, $right));
     return array_map(function ($items) use ($file1, $file2) {
         if (key_exists($items, $file1) && key_exists($items, $file2)) {
             if (is_array($file1[$items]) && is_array($file2[$items])) {
@@ -62,5 +63,5 @@ function getDiff(array $file1, array $file2): array
             $node = createNode('added', $items, null, $file2[$items]);
         }
         return $node;
-    }, $uniqueFilesKeys);
+    }, $sortedUniqueFilesKeys);
 }
