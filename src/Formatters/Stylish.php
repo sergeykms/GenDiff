@@ -9,15 +9,14 @@ function renderArray(array $array, int $level): string
 
     $keys = array_keys($array);
     $viewArray = array_map(function ($key) use ($array, $level,) {
-        $level++;
-        $indentBefore = str_repeat(" ", $level * STEP_INDENT - 2);
-        $indentAfter = str_repeat(" ", $level * STEP_INDENT);
+        $indentBefore = str_repeat(" ", ($level + 1) * STEP_INDENT - 2);
+        $indentAfter = str_repeat(" ", ($level + 1) * STEP_INDENT);
         if (is_array($array[$key])) {
             $format = "\n%s %s %s: {%s\n%s}";
-            $value = sprintf($format, $indentBefore, "", $key, getValue($array[$key], $level), $indentAfter);
+            $value = sprintf($format, $indentBefore, "", $key, getValue($array[$key], ($level + 1)), $indentAfter);
         } else {
             $format = "\n%s %s %s: %s";
-            $value = sprintf($format, $indentBefore, "", $key, getValue($array[$key], $level));
+            $value = sprintf($format, $indentBefore, "", $key, getValue($array[$key], ($level + 1)));
         }
         return "{$value}";
     }, $keys);
@@ -69,7 +68,6 @@ function stylish(array $diff, int $level = 1): string
     $message = array_map(function ($items) use ($level) {
         switch ($items["type"]) {
             case 'node':
-//                $level = $level + 1;
                 return renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
             case 'unchanged':
                 return renderItem($level, $items["key"], $items['before'], " ");
