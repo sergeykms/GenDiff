@@ -4,6 +4,11 @@ namespace Formatters\Stylish;
 
 const STEP_INDENT = 4;
 
+function increaseLevel(int $level): int
+{
+    return $level + 1;
+}
+
 function renderArray(array $array, int $level): string
 {
     $keys = array_keys($array);
@@ -63,7 +68,8 @@ function stylish(array $diff, int $level = 1): string
     $message = array_map(function ($items) use ($level) {
         switch ($items["type"]) {
             case 'node':
-                $level++;
+                $level = increaseLevel($level);
+//                $level++;
                 return renderNode($level, $items["key"], stylish($items['children'], $level), " ");
             case 'unchanged':
                 return renderItem($level, $items["key"], $items['before'], " ");
