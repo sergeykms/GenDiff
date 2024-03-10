@@ -6,13 +6,19 @@ const STEP_INDENT = 4;
 
 function renderArray(array $array, int $level): string
 {
+
     $keys = array_keys($array);
     $viewArray = array_map(function ($key) use ($array, $level,) {
         $level++;
         $indentBefore = str_repeat(" ", $level * STEP_INDENT - 2);
         $indentAfter = str_repeat(" ", $level * STEP_INDENT);
-        is_array($array[$key]) ? $format = "\n%s %s %s: {%s\n%s}" : $format = "\n%s %s %s: %s";
-        $value = sprintf($format, $indentBefore, "", $key, getValue($array[$key], $level), $indentAfter);
+        if (is_array($array[$key])) {
+            $format = "\n%s %s %s: {%s\n%s}";
+            $value = sprintf($format, $indentBefore, "", $key, getValue($array[$key], $level), $indentAfter);
+        } else {
+            $format = "\n%s %s %s: %s";
+            $value = sprintf($format, $indentBefore, "", $key, getValue($array[$key], $level));
+        }
         return "{$value}";
     }, $keys);
     return implode("", $viewArray);
