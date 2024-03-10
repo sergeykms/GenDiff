@@ -2,15 +2,15 @@
 
 namespace Formatters;
 
-use function Formatters\Stylish\stylish;
-use function Formatters\Plain\plain;
+use function Formatters\Stylish\getStylish;
+use function Formatters\Plain\getPlain;
 use function Formatters\Json\json;
 
 function formatters(array $allDiffer, string $format): string
 {
     return match ($format) {
-        'stylish' => "{" . stylish($allDiffer) . "\n}",
-        'plain' => plain($allDiffer),
+        'stylish' => getStylish($allDiffer),
+        'plain' => getPlain($allDiffer),
         'json' => json($allDiffer),
         default => throw new \Exception("Format {$format} not supported."),
     };

@@ -16,28 +16,32 @@ function getValue(mixed $value): mixed
     }
 }
 
-function plain(array $diff, string $level = ""): string
+function plain(array $diff, array $level = []): string
 {
-    return array_reduce($diff, function ($acc, $items) use ($level) {
-        $level .= $items["key"] . ".";
+    $message = array_reduce($diff, function ($acc, $items) use ($level) {
+        $level[] = $items["key"];
         switch ($items["type"]) {
             case 'node':
-                $acc .= plain($items['value'], $level);
+                $acc[] = plain($items['children'], $level);
                 break;
             case 'deleted':
-                $acc .= "Property " . "'" . substr($level, 0, -1) . "'" . " was removed" . "\n";
+                $format = "Property '%s' was removed\n";
+                $acc[] = sprintf($format, implode(".", $level));
                 break;
             case 'added':
-                $acc .= "Property " . "'" . substr($level, 0, -1) . "'"
-                    . " was added with value: " . getValue($items['value']) . "\n";
+                $format = "Property '%s' was added with value: %s\n";
+                $acc[] = sprintf($format, implode(".", $level), getValue($items['after']));;
                 break;
             case 'changed':
-                $deletedItems = $items["before"];
-                $addedItems = $items["after"];
-                $acc .= "Property " . "'" . substr($level, 0, -1) . "'" . " was updated. From "
-                    . getValue($deletedItems["value"]) . " to " . getValue($addedItems["value"]) . "\n";
+                $format = "Property '%s' was updated. From %s to %s\n";
+                $acc[] = sprintf($format, implode(".", $level), getValue($items['before']), getValue($items['after']));
                 break;
         }
         return $acc;
-    }, '');
+    }, []);
+    return implode("", $message);
+}
+function getPlain(array $diff): string
+{
+    return plain($diff);
 }
