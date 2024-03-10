@@ -30,7 +30,7 @@ function plain(array $diff, array $level = []): string
                 break;
             case 'added':
                 $format = "Property '%s' was added with value: %s\n";
-                $acc[] = sprintf($format, implode(".", $level), getValue($items['after']));;
+                $acc[] = sprintf($format, implode(".", $level), getValue($items['after']));
                 break;
             case 'changed':
                 $format = "Property '%s' was updated. From %s to %s\n";
