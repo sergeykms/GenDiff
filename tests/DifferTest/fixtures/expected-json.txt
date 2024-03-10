@@ -1,184 +1,134 @@
 [
     {
+        "type": "node",
         "key": "common",
-        "type": "node",
-        "value": [
+        "before": null,
+        "after": null,
+        "children": [
             {
+                "type": "added",
                 "key": "follow",
-                "type": "added",
-                "value": false
+                "before": null,
+                "after": false
             },
             {
+                "type": "unchanged",
                 "key": "setting1",
-                "type": "unchanged",
-                "value": "Value 1"
+                "before": "Value 1",
+                "after": "Value 1"
             },
             {
-                "key": "setting2",
                 "type": "deleted",
-                "value": 200
+                "key": "setting2",
+                "before": 200,
+                "after": null
             },
             {
+                "type": "changed",
                 "key": "setting3",
-                "type": "changed",
-                "before": {
-                    "key": "setting3",
-                    "type": "deleted",
-                    "value": true
-                },
-                "after": {
-                    "key": "setting3",
-                    "type": "added",
-                    "value": null
-                }
+                "before": true,
+                "after": null
             },
             {
+                "type": "added",
                 "key": "setting4",
-                "type": "added",
-                "value": "blah blah"
+                "before": null,
+                "after": "blah blah"
             },
             {
+                "type": "added",
                 "key": "setting5",
-                "type": "added",
-                "value": [
-                    {
-                        "key": "key5",
-                        "type": "unchanged",
-                        "value": "value5"
-                    }
-                ]
+                "before": null,
+                "after": {
+                    "key5": "value5"
+                }
             },
             {
+                "type": "node",
                 "key": "setting6",
-                "type": "node",
-                "value": [
+                "before": null,
+                "after": null,
+                "children": [
                     {
+                        "type": "node",
                         "key": "doge",
-                        "type": "node",
-                        "value": [
+                        "before": null,
+                        "after": null,
+                        "children": [
                             {
-                                "key": "wow",
                                 "type": "changed",
-                                "before": {
-                                    "key": "wow",
-                                    "type": "deleted",
-                                    "value": 1
-                                },
-                                "after": {
-                                    "key": "wow",
-                                    "type": "added",
-                                    "value": "so much"
-                                }
+                                "key": "wow",
+                                "before": 1,
+                                "after": "so much"
                             }
                         ]
                     },
                     {
+                        "type": "unchanged",
                         "key": "key",
-                        "type": "unchanged",
-                        "value": "value"
+                        "before": "value",
+                        "after": "value"
                     },
                     {
-                        "key": "ops",
                         "type": "added",
-                        "value": "vops"
+                        "key": "ops",
+                        "before": null,
+                        "after": "vops"
                     }
                 ]
             }
         ]
     },
     {
-        "key": "group1",
         "type": "node",
-        "value": [
+        "key": "group1",
+        "before": null,
+        "after": null,
+        "children": [
             {
+                "type": "changed",
                 "key": "baz",
-                "type": "changed",
-                "before": {
-                    "key": "baz",
-                    "type": "deleted",
-                    "value": "bas"
-                },
-                "after": {
-                    "key": "baz",
-                    "type": "added",
-                    "value": "bars"
-                }
+                "before": "bas",
+                "after": "bars"
             },
             {
+                "type": "unchanged",
                 "key": "foo",
-                "type": "unchanged",
-                "value": "bar"
+                "before": "bar",
+                "after": "bar"
             },
             {
-                "key": "nest",
                 "type": "changed",
+                "key": "nest",
                 "before": {
-                    "key": "nest",
-                    "type": "deleted",
-                    "value": [
-                        {
-                            "key": "key",
-                            "type": "unchanged",
-                            "value": "value"
-                        }
-                    ]
+                    "key": "value"
                 },
-                "after": {
-                    "key": "nest",
-                    "type": "added",
-                    "value": "str"
-                }
+                "after": "str"
             }
         ]
     },
     {
-        "key": "group2",
         "type": "deleted",
-        "value": [
-            {
-                "key": "abc",
-                "type": "unchanged",
-                "value": 12345
-            },
-            {
-                "key": "deep",
-                "type": "node",
-                "value": [
-                    {
-                        "key": "id",
-                        "type": "unchanged",
-                        "value": 45
-                    }
-                ]
+        "key": "group2",
+        "before": {
+            "abc": 12345,
+            "deep": {
+                "id": 45
             }
-        ]
+        },
+        "after": null
     },
     {
-        "key": "group3",
         "type": "added",
-        "value": [
-            {
-                "key": "deep",
-                "type": "node",
-                "value": [
-                    {
-                        "key": "id",
-                        "type": "node",
-                        "value": [
-                            {
-                                "key": "number",
-                                "type": "unchanged",
-                                "value": 45
-                            }
-                        ]
-                    }
-                ]
+        "key": "group3",
+        "before": null,
+        "after": {
+            "deep": {
+                "id": {
+                    "number": 45
+                }
             },
-            {
-                "key": "fee",
-                "type": "unchanged",
-                "value": 100500
-            }
-        ]
+            "fee": 100500
+        }
     }
 ]

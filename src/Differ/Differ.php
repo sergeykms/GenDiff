@@ -5,18 +5,6 @@ namespace Differ\Differ;
 use function Differ\Parser\parse;
 use function Formatters\formatters;
 
-//function getValue(mixed $value): mixed
-//{
-////    return match (gettype($value)) {
-////        'boolean' => $value ? 'true' : 'false',
-////        'NULL' => 'null',
-////        'int' => (int) $value,
-////        default => $value,
-////    };
-//
-//    return $value;
-//}
-
 function parseFile(string $pathToFile): mixed
 {
     $content = (string)file_get_contents($pathToFile);
@@ -58,7 +46,7 @@ function getDiff(array $file1, array $file2): array
 {
     $filesKeys = array_merge(array_keys($file1), array_keys($file2));
     $uniqueFilesKeys = (array_unique($filesKeys));
-    asort($uniqueFilesKeys);
+    sort($uniqueFilesKeys);
     return array_map(function ($items) use ($file1, $file2) {
         if (key_exists($items, $file1) && key_exists($items, $file2)) {
             if (is_array($file1[$items]) && is_array($file2[$items])) {

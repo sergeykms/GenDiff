@@ -79,33 +79,6 @@ function stylish(array $diff, int $level = 1): string
     return implode("", $message);
 }
 
-//function stylish(array $diff, int $level = 1): string
-//{
-//    $message = array_reduce($diff, function ($acc, $items) use ($level) {
-//        switch ($items["type"]) {
-//            case 'node':
-//                $level++;
-//                $acc[] = renderNode($level, $items["key"], stylish($items['children'], $level), " ");
-//                break;
-//            case 'unchanged':
-//                $acc[] = renderItem($level, $items["key"], $items['before'], " ");
-//                break;
-//            case 'deleted':
-//                $acc[] = renderItem($level, $items["key"], $items['before'], "-");
-//                break;
-//            case 'added':
-//                $acc[] = renderItem($level, $items["key"], $items['after'], "+");
-//                break;
-//            case 'changed':
-//                $acc[] = renderItem($level, $items["key"], $items['before'], "-");
-//                $acc[] = renderItem($level, $items["key"], $items['after'], "+");
-//                break;
-//        }
-//        return $acc;
-//    }, []);
-//    return implode("", $message);
-//}
-
 function getStylish(array $diff): string
 {
     return "{" . stylish($diff) . "\n}";

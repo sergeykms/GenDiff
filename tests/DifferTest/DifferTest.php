@@ -45,17 +45,17 @@ class DifferTest extends TestCase
         $result = genDiff($recurs1, $recurs2, 'plain');
         $expected = file_get_contents(__DIR__ . "/fixtures/expected-plain.txt");
         $this->assertEquals($expected, $result);
-//
-//        $recurs1 = __DIR__ . "/fixtures/recurs1.json";
-//        $recurs2 = __DIR__ . "/fixtures/recurs2.json";
-//        $result = genDiff($recurs1, $recurs2, 'json');
-//        $expected = file_get_contents(__DIR__ . "/fixtures/expected-json.txt");
-//        $this->assertEquals($expected, $result);
-//
-//        $recurs1 = __DIR__ . "/fixtures/recurs1.yaml";
-//        $recurs2 = __DIR__ . "/fixtures/recurs2.yaml";
-//        $result = genDiff($recurs1, $recurs2, 'json');
-//        $expected = file_get_contents(__DIR__ . "/fixtures/expected-json.txt");
-//        $this->assertEquals($expected, $result);
+
+        $recurs1 = __DIR__ . "/fixtures/recurs1.json";
+        $recurs2 = __DIR__ . "/fixtures/recurs2.json";
+        $result = genDiff($recurs1, $recurs2, 'json');
+        $expected = file_get_contents(__DIR__ . "/fixtures/expected-json.txt");
+        $this->assertEquals($expected, $result);
+
+        $recurs1 = __DIR__ . "/fixtures/recurs1.yaml";
+        $recurs2 = __DIR__ . "/fixtures/recurs2.yaml";
+        $result = genDiff($recurs1, $recurs2, 'json');
+        $expected = file_get_contents(__DIR__ . "/fixtures/expected-json.txt");
+        $this->assertEquals($expected, $result);
     }
 }
