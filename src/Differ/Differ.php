@@ -55,7 +55,7 @@ function getDiff(array $file1, array $file2): array
 {
     $filesKeys = array_merge(array_keys($file1), array_keys($file2));
     $uniqueFilesKeys = (array_unique($filesKeys));
-    sort($uniqueFilesKeys);
+    asort($uniqueFilesKeys);
     return array_map(function ($items) use ($file1, $file2) {
         if (key_exists($items, $file1) && key_exists($items, $file2)) {
             if (is_array($file1[$items]) && is_array($file2[$items])) {
