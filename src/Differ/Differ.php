@@ -5,17 +5,17 @@ namespace Differ\Differ;
 use function Differ\Parser\parse;
 use function Formatters\formatters;
 
-function getValue(mixed $value): mixed
-{
-//    return match (gettype($value)) {
-//        'boolean' => $value ? 'true' : 'false',
-//        'NULL' => 'null',
-//        'int' => (int) $value,
-//        default => $value,
-//    };
-
-    return $value;
-}
+//function getValue(mixed $value): mixed
+//{
+////    return match (gettype($value)) {
+////        'boolean' => $value ? 'true' : 'false',
+////        'NULL' => 'null',
+////        'int' => (int) $value,
+////        default => $value,
+////    };
+//
+//    return $value;
+//}
 
 function parseFile(string $pathToFile): mixed
 {
@@ -25,13 +25,16 @@ function parseFile(string $pathToFile): mixed
 
 function createNode(string $type, string $key, mixed $before, mixed $after, mixed $children = null): array
 {
-    return [
+    $diff = [
         'type' => $type,
         'key' => $key,
-        'before' => gettype($before) != 'array' ? getValue($before) : $before,
-        'after' => gettype($after) != 'array' ? getValue($after) : $after,
-        "children" => $children,
+        'before' => $before,
+        'after' => $after,
     ];
+    if ($children) {
+        $diff["children"] = $children;
+    }
+    return $diff;
 }
 
 function genDiff(string $pathToFile1, string $pathToFile2, string $format = "stylish"): string
