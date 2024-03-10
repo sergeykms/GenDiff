@@ -21,7 +21,7 @@ function getValue(mixed $value): mixed
 function plain(array $diff, string $level = null): string
 {
     $message = array_map(function ($items) use ($level) {
-        $temp = $level ? concat($level, '.', $items["key"]) : $items["key"];
+        $temp = $level != null ? concat($level, '.', $items["key"]) : $items["key"];
         switch ($items["type"]) {
             case 'node':
                 return plain($items['children'], $temp);
