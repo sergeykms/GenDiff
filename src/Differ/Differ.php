@@ -14,16 +14,13 @@ function parseFile(string $pathToFile): mixed
 
 function createNode(string $type, string $key, mixed $before, mixed $after, mixed $children = null): array
 {
-    $diff = [
+    return  [
         'type' => $type,
         'key' => $key,
         'before' => $before,
         'after' => $after,
+        'children' => $children,
     ];
-    if ($children != null) {
-        $diff["children"] = $children;
-    }
-    return $diff;
 }
 
 function genDiff(string $pathToFile1, string $pathToFile2, string $format = "stylish"): string
