@@ -63,24 +63,43 @@ function renderNode(int $level, string $key, mixed $value, string $mark): string
     }
 }
 
+function getItems($items, $level)
+{
+    switch ($items["type"]) {
+        case 'node':
+            return renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
+        case 'unchanged':
+            return renderItem($level, $items["key"], $items['before'], " ");
+        case 'deleted':
+            return renderItem($level, $items["key"], $items['before'], "-");
+        case 'added':
+            return renderItem($level, $items["key"], $items['after'], "+");
+        case 'changed':
+            return implode("", [renderItem($level, $items["key"], $items['before'], "-"),
+                renderItem($level, $items["key"], $items['after'], "+")]);
+    }
+}
+
+
 function stylish(array $diff, int $level = 1): string
 {
-    $message = array_map(function ($items) use ($level) {
-        switch ($items["type"]) {
-            case 'node':
-                return renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
-            case 'unchanged':
-                return renderItem($level, $items["key"], $items['before'], " ");
-            case 'deleted':
-                return renderItem($level, $items["key"], $items['before'], "-");
-            case 'added':
-                return renderItem($level, $items["key"], $items['after'], "+");
-            case 'changed':
-                return implode("", [renderItem($level, $items["key"], $items['before'], "-"),
-                    renderItem($level, $items["key"], $items['after'], "+")]);
-        }
-    }, $diff);
-    return implode("", $message);
+    return implode("", array_map(function ($items) use ($level) {
+        return getItems($items, $level);
+//        switch ($items["type"]) {
+//            case 'node':
+//                return renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
+//            case 'unchanged':
+//                return renderItem($level, $items["key"], $items['before'], " ");
+//            case 'deleted':
+//                return renderItem($level, $items["key"], $items['before'], "-");
+//            case 'added':
+//                return renderItem($level, $items["key"], $items['after'], "+");
+//            case 'changed':
+//                return implode("", [renderItem($level, $items["key"], $items['before'], "-"),
+//                    renderItem($level, $items["key"], $items['after'], "+")]);
+//        }
+    }, $diff));
+//    return implode("", $message);
 }
 
 function getStylish(array $diff): string

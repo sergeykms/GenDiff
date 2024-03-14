@@ -31,15 +31,6 @@ function genDiff(string $pathToFile1, string $pathToFile2, string $format = "sty
     return formatters($allDiffer, $format);
 }
 
-function isArray(mixed $items): mixed
-{
-    if (is_array($items)) {
-        return getDiff($items, $items);
-    } else {
-        return $items;
-    }
-}
-
 function getDiff(array $file1, array $file2): array
 {
     $filesKeys = array_merge(array_keys($file1), array_keys($file2));
