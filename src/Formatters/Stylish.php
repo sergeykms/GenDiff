@@ -6,7 +6,6 @@ const STEP_INDENT = 4;
 
 function renderArray(array $array, int $level): string
 {
-
     $keys = array_keys($array);
     $viewArray = array_map(function ($key) use ($array, $level,) {
         $indentBefore = str_repeat(" ", ($level + 1) * STEP_INDENT - 2);
@@ -65,22 +64,17 @@ function renderNode(int $level, string $key, mixed $value, string $mark): string
 
 function stylish(array $diff, int $level = 1): string
 {
-    $message = array_map(function ($items) use ($level) {
-        switch ($items["type"]) {
-            case 'node':
-                return renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
-            case 'unchanged':
-                return renderItem($level, $items["key"], $items['before'], " ");
-            case 'deleted':
-                return renderItem($level, $items["key"], $items['before'], "-");
-            case 'added':
-                return renderItem($level, $items["key"], $items['after'], "+");
-            case 'changed':
-                return implode("", [renderItem($level, $items["key"], $items['before'], "-"),
-                    renderItem($level, $items["key"], $items['after'], "+")]);
-        }
-    }, $diff);
-    return implode("", $message);
+    return implode("", array_map(function ($items) use ($level) {
+        return match ($items["type"]) {
+            'node' => renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " "),
+            'unchanged' => renderItem($level, $items["key"], $items['before'], " "),
+            'deleted' => renderItem($level, $items["key"], $items['before'], "-"),
+            'added' => renderItem($level, $items["key"], $items['after'], "+"),
+            'changed' => implode("", [renderItem($level, $items["key"], $items['before'], "-"),
+                renderItem($level, $items["key"], $items['after'], "+")]),
+            default => '',
+        };
+    }, $diff));
 }
 
 function getStylish(array $diff): string
