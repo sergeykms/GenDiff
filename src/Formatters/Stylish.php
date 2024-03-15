@@ -65,26 +65,15 @@ function renderNode(int $level, string $key, mixed $value, string $mark): string
 
 function getItems(mixed $items, int $level): string
 {
-    $item = "";
-    switch ($items["type"]) {
-        case 'node':
-            $item = renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
-            break;
-        case 'unchanged':
-            $item = renderItem($level, $items["key"], $items['before'], " ");
-            break;
-        case 'deleted':
-            $item = renderItem($level, $items["key"], $items['before'], "-");
-            break;
-        case 'added':
-            $item = renderItem($level, $items["key"], $items['after'], "+");
-            break;
-        case 'changed':
-            $item = implode("", [renderItem($level, $items["key"], $items['before'], "-"),
-                renderItem($level, $items["key"], $items['after'], "+")]);
-            break;
-    }
-    return $item;
+    return match ($items["type"]) {
+        'node' => renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " "),
+        'unchanged' => renderItem($level, $items["key"], $items['before'], " "),
+        'deleted' => renderItem($level, $items["key"], $items['before'], "-"),
+        'added' => renderItem($level, $items["key"], $items['after'], "+"),
+        'changed' => implode("", [renderItem($level, $items["key"], $items['before'], "-"),
+            renderItem($level, $items["key"], $items['after'], "+")]),
+        default => throw new \Exception("Format {$items["type"]} not supported."),
+    };
 }
 
 function stylish(array $diff, int $level = 1): string
