@@ -63,23 +63,29 @@ function renderNode(int $level, string $key, mixed $value, string $mark): string
     }
 }
 
-function getItems($items, $level)
+function getItems(mixed $items, int $level): string
 {
+    $item = "";
     switch ($items["type"]) {
         case 'node':
-            return renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
+            $item = renderNode($level + 1, $items["key"], stylish($items['children'], $level + 1), " ");
+            break;
         case 'unchanged':
-            return renderItem($level, $items["key"], $items['before'], " ");
+            $item = renderItem($level, $items["key"], $items['before'], " ");
+            break;
         case 'deleted':
-            return renderItem($level, $items["key"], $items['before'], "-");
+            $item = renderItem($level, $items["key"], $items['before'], "-");
+            break;
         case 'added':
-            return renderItem($level, $items["key"], $items['after'], "+");
+            $item = renderItem($level, $items["key"], $items['after'], "+");
+            break;
         case 'changed':
-            return implode("", [renderItem($level, $items["key"], $items['before'], "-"),
+            $item = implode("", [renderItem($level, $items["key"], $items['before'], "-"),
                 renderItem($level, $items["key"], $items['after'], "+")]);
+            break;
     }
+    return $item;
 }
-
 
 function stylish(array $diff, int $level = 1): string
 {
