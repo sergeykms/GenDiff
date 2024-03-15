@@ -20,23 +20,17 @@ function getValue(mixed $value): mixed
 
 function plain(array $diff, string $level = null): string
 {
-    $message = array_map(function ($items) use ($level) {
-        $temp = $level != null ? concat($level, '.', $items["key"]) : $items["key"];
-        switch ($items["type"]) {
-            case 'node':
-                return plain($items['children'], $temp);
-            case 'deleted':
-                $format = "Property '%s' was removed\n";
-                return sprintf($format, $temp);
-            case 'added':
-                $format = "Property '%s' was added with value: %s\n";
-                return sprintf($format, $temp, getValue($items['after']));
-            case 'changed':
-                $format = "Property '%s' was updated. From %s to %s\n";
-                return sprintf($format, $temp, getValue($items['before']), getValue($items['after']));
-        }
-    }, $diff);
-    return implode("", $message);
+    return implode("", array_map(function ($items) use ($level) {
+        $path = $level != null ? concat($level, '.', $items["key"]) : $items["key"];
+        return match ($items["type"]) {
+            'node' => plain($items['children'], $path),
+            'deleted' => sprintf("Property '%s' was removed\n", $path),
+            'added' => sprintf("Property '%s' was added with value: %s\n", $path, getValue($items['after'])),
+            'changed' => sprintf("Property '%s' was updated. From %s to %s\n", $path,
+                getValue($items['before']), getValue($items['after'])),
+            default => '',
+        };
+    }, $diff));
 }
 
 function getPlain(array $diff): string
