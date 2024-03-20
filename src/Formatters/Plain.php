@@ -7,7 +7,7 @@ use function Functional\concat;
 function getValue(mixed $value): mixed
 {
     if (is_array($value)) {
-        return "[complex value]";
+        return '[complex value]';
     } else {
         return match (gettype($value)) {
             'boolean' => $value ? 'true' : 'false',
@@ -20,9 +20,9 @@ function getValue(mixed $value): mixed
 
 function plain(array $diff, string $level = null): string
 {
-    return implode("", array_map(function ($items) use ($level) {
-        $path = $level != null ? concat($level, '.', $items["key"]) : $items["key"];
-        return match ($items["type"]) {
+    return implode('', array_map(function ($items) use ($level) {
+        $path = $level != null ? concat($level, '.', $items['key']) : $items['key'];
+        return match ($items['type']) {
             'node' => plain($items['children'], $path),
             'deleted' => sprintf("Property '%s' was removed\n", $path),
             'added' => sprintf("Property '%s' was added with value: %s\n", $path, getValue($items['after'])),

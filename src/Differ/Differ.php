@@ -23,10 +23,28 @@ function createNode(string $type, string $key, array $values, mixed $children = 
     ];
 }
 
-function genDiff(string $pathToFile1, string $pathToFile2, string $format = "stylish"): string
+function getContent(string $pathToFile): array
 {
-    $file1 = parse((string) realpath($pathToFile1));
-    $file2 = parse((string) realpath($pathToFile2));
+    $extension = pathinfo($pathToFile, PATHINFO_EXTENSION);
+    return match ($extension) {
+        'json' => [
+            'content' => (string) file_get_contents($pathToFile),
+            'type' => 'json'
+        ],
+        'yaml', 'yml' => [
+            'content' => $pathToFile,
+            'type' => 'yaml'
+        ],
+        default => throw new \Exception('Format {$extension} not supported.'),
+    };
+}
+
+function genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish'): string
+{
+    ['content' => $content1, 'type' => $type1] = getContent((string) realpath($pathToFile1));
+    ['content' => $content2, 'type' => $type2] = getContent((string) realpath($pathToFile2));
+    $file1 = parse($content1, $type1);
+    $file2 = parse($content2, $type2);
     $allDiffer = getDiff($file1, $file2);
     return formatters($allDiffer, $format);
 }
