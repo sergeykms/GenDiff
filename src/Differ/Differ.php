@@ -26,13 +26,14 @@ function createNode(string $type, string $key, array $values, mixed $children = 
 function getContent(string $pathToFile): array
 {
     $extension = pathinfo($pathToFile, PATHINFO_EXTENSION);
+    $content = (string) file_get_contents($pathToFile);
     return match ($extension) {
         'json' => [
-            'content' => (string) file_get_contents($pathToFile),
+            'content' => $content,
             'type' => 'json'
         ],
         'yaml', 'yml' => [
-            'content' => $pathToFile,
+            'content' => $content,
             'type' => 'yaml'
         ],
         default => throw new \Exception('Format {$extension} not supported.'),
