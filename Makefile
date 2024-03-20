@@ -20,7 +20,7 @@ run-rec-yaml:
 	./bin/gendiff tests/DifferTest/fixtures/recurs1.yaml tests/DifferTest/fixtures/recurs2.yaml
 
 stan:
-	php ./vendor/bin/phpstan analyse src tests --level 8
+	php ./vendor/bin/phpstan analyse
 
 auto:
 	composer dump-autoload
