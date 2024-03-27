@@ -2,7 +2,7 @@
 
 namespace Formatters\Json;
 
-function json(array $diff): mixed
+function getJson(array $diff): string
 {
-    return json_encode($diff, JSON_PRETTY_PRINT);
+    return (string) json_encode($diff, JSON_PRETTY_PRINT);
 }

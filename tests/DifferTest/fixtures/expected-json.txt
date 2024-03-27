@@ -2,49 +2,49 @@
     {
         "type": "node",
         "key": "common",
-        "before": null,
-        "after": null,
+        "$values1": null,
+        "$values2": null,
         "children": [
             {
                 "type": "added",
                 "key": "follow",
-                "before": null,
-                "after": false,
+                "$values1": null,
+                "$values2": false,
                 "children": null
             },
             {
                 "type": "unchanged",
                 "key": "setting1",
-                "before": "Value 1",
-                "after": "Value 1",
+                "$values1": "Value 1",
+                "$values2": "Value 1",
                 "children": null
             },
             {
                 "type": "deleted",
                 "key": "setting2",
-                "before": 200,
-                "after": null,
+                "$values1": 200,
+                "$values2": null,
                 "children": null
             },
             {
                 "type": "changed",
                 "key": "setting3",
-                "before": true,
-                "after": null,
+                "$values1": true,
+                "$values2": null,
                 "children": null
             },
             {
                 "type": "added",
                 "key": "setting4",
-                "before": null,
-                "after": "blah blah",
+                "$values1": null,
+                "$values2": "blah blah",
                 "children": null
             },
             {
                 "type": "added",
                 "key": "setting5",
-                "before": null,
-                "after": {
+                "$values1": null,
+                "$values2": {
                     "key5": "value5"
                 },
                 "children": null
@@ -52,20 +52,20 @@
             {
                 "type": "node",
                 "key": "setting6",
-                "before": null,
-                "after": null,
+                "$values1": null,
+                "$values2": null,
                 "children": [
                     {
                         "type": "node",
                         "key": "doge",
-                        "before": null,
-                        "after": null,
+                        "$values1": null,
+                        "$values2": null,
                         "children": [
                             {
                                 "type": "changed",
                                 "key": "wow",
-                                "before": 1,
-                                "after": "so much",
+                                "$values1": 1,
+                                "$values2": "so much",
                                 "children": null
                             }
                         ]
@@ -73,15 +73,15 @@
                     {
                         "type": "unchanged",
                         "key": "key",
-                        "before": "value",
-                        "after": "value",
+                        "$values1": "value",
+                        "$values2": "value",
                         "children": null
                     },
                     {
                         "type": "added",
                         "key": "ops",
-                        "before": null,
-                        "after": "vops",
+                        "$values1": null,
+                        "$values2": "vops",
                         "children": null
                     }
                 ]
@@ -91,30 +91,30 @@
     {
         "type": "node",
         "key": "group1",
-        "before": null,
-        "after": null,
+        "$values1": null,
+        "$values2": null,
         "children": [
             {
                 "type": "changed",
                 "key": "baz",
-                "before": "bas",
-                "after": "bars",
+                "$values1": "bas",
+                "$values2": "bars",
                 "children": null
             },
             {
                 "type": "unchanged",
                 "key": "foo",
-                "before": "bar",
-                "after": "bar",
+                "$values1": "bar",
+                "$values2": "bar",
                 "children": null
             },
             {
                 "type": "changed",
                 "key": "nest",
-                "before": {
+                "$values1": {
                     "key": "value"
                 },
-                "after": "str",
+                "$values2": "str",
                 "children": null
             }
         ]
@@ -122,20 +122,20 @@
     {
         "type": "deleted",
         "key": "group2",
-        "before": {
+        "$values1": {
             "abc": 12345,
             "deep": {
                 "id": 45
             }
         },
-        "after": null,
+        "$values2": null,
         "children": null
     },
     {
         "type": "added",
         "key": "group3",
-        "before": null,
-        "after": {
+        "$values1": null,
+        "$values2": {
             "deep": {
                 "id": {
                     "number": 45
