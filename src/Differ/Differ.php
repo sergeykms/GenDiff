@@ -8,7 +8,7 @@ use function Functional\sort;
 
 function createNode(string $type, string $key, array $values, mixed $children = null): array
 {
-    return  [
+    return [
         'type' => $type,
         'key' => $key,
         '$values1' => $values[0],
@@ -19,25 +19,29 @@ function createNode(string $type, string $key, array $values, mixed $children = 
 
 function getContent(string $pathToFile): array
 {
-    $extension = pathinfo($pathToFile, PATHINFO_EXTENSION);
-    $content = (string) file_get_contents($pathToFile);
-    return match ($extension) {
-        'json' => [
-            'content' => $content,
-            'type' => 'json'
-        ],
-        'yaml', 'yml' => [
-            'content' => $content,
-            'type' => 'yaml'
-        ],
-        default => throw new \Exception('Format {$extension} not supported.'),
-    };
+    if (file_exists($pathToFile)) {
+        $extension = pathinfo($pathToFile, PATHINFO_EXTENSION);
+        $content = (string)file_get_contents($pathToFile);
+        return match ($extension) {
+            'json' => [
+                'content' => $content,
+                'type' => 'json'
+            ],
+            'yaml', 'yml' => [
+                'content' => $content,
+                'type' => 'yaml'
+            ],
+            default => throw new \Exception('Format {$extension} not supported.'),
+        };
+    } else {
+        throw new \Exception('File {$pathToFile} not existed.');
+    }
 }
 
 function genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish'): string
 {
-    ['content' => $content1, 'type' => $type1] = getContent((string) realpath($pathToFile1));
-    ['content' => $content2, 'type' => $type2] = getContent((string) realpath($pathToFile2));
+    ['content' => $content1, 'type' => $type1] = getContent((string)realpath($pathToFile1));
+    ['content' => $content2, 'type' => $type2] = getContent((string)realpath($pathToFile2));
     $dataForComparison1 = parse($content1, $type1);
     $dataForComparison2 = parse($content2, $type2);
     $allDiffer = getDiff($dataForComparison1, $dataForComparison2);
@@ -48,7 +52,7 @@ function getDiff(array $data1, array $data2): array
 {
     $filesKeys = array_merge(array_keys($data1), array_keys($data2));
     $uniqueFilesKeys = (array_unique($filesKeys));
-    $sortedUniqueFilesKeys = sort($uniqueFilesKeys, fn ($left, $right) => strcmp($left, $right));
+    $sortedUniqueFilesKeys = sort($uniqueFilesKeys, fn($left, $right) => strcmp($left, $right));
     return array_map(function ($items) use ($data1, $data2) {
         if (array_key_exists($items, $data1) && array_key_exists($items, $data2)) {
             if (is_array($data1[$items]) && is_array($data2[$items])) {
