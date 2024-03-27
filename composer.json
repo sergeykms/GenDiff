@@ -6,7 +6,7 @@
     "autoload": {
         "files": [
             "src/Differ/Differ.php",
-            "src/Differ/Parser.php",
+            "src/Parser/Parser.php",
             "src/Formatters/Stylish.php",
             "src/Formatters/Plain.php",
             "src/Formatters/Json.php",
@@ -25,14 +25,14 @@
     "require": {
         "docopt/docopt": "^1.0",
         "symfony/yaml": "^5.3",
-        "phpstan/phpstan": "^1.9.2",
         "lstrojny/functional-php": "^1.17"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
         "phpunit/phpunit": "^9.5.26",
         "phpstan/phpstan-phpunit": "^1.2.2",
-        "phpstan/extension-installer": "^1.2"
+        "phpstan/extension-installer": "^1.2",
+        "phpstan/phpstan": "^1.9.2"
     },
     "config": {
         "allow-plugins": {

@@ -25,9 +25,9 @@ function plain(array $diff, string $level = null): string
         return match ($items['type']) {
             'node' => plain($items['children'], $path),
             'deleted' => sprintf("Property '%s' was removed\n", $path),
-            'added' => sprintf("Property '%s' was added with value: %s\n", $path, getValue($items['after'])),
+            'added' => sprintf("Property '%s' was added with value: %s\n", $path, getValue($items['$values2'])),
             'changed' => sprintf("Property '%s' was updated. From %s to %s\n", $path,
-                getValue($items['before']), getValue($items['after'])),
+                getValue($items['$values1']), getValue($items['$values2'])),
             default => '',
         };
     }, $diff));

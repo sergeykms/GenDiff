@@ -67,11 +67,11 @@ function stylish(array $diff, int $level = 1): string
     return implode('', array_map(function ($items) use ($level) {
         return match ($items['type']) {
             'node' => renderNode($level + 1, $items['key'], stylish($items['children'], $level + 1), ' '),
-            'unchanged' => renderItem($level, $items['key'], $items['before'], ' '),
-            'deleted' => renderItem($level, $items['key'], $items['before'], '-'),
-            'added' => renderItem($level, $items['key'], $items['after'], '+'),
-            'changed' => implode('', [renderItem($level, $items['key'], $items['before'], '-'),
-                renderItem($level, $items["key"], $items['after'], '+')]),
+            'unchanged' => renderItem($level, $items['key'], $items['$values1'], ' '),
+            'deleted' => renderItem($level, $items['key'], $items['$values1'], '-'),
+            'added' => renderItem($level, $items['key'], $items['$values2'], '+'),
+            'changed' => implode('', [renderItem($level, $items['key'], $items['$values1'], '-'),
+                renderItem($level, $items["key"], $items['$values2'], '+')]),
             default => '',
         };
     }, $diff));
